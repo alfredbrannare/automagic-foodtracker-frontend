@@ -19,5 +19,31 @@ export async function login(username: string, password: string): Promise<AuthRes
         throw new Error('Failed to login');
     }
 
-    return response.json();
+    return response.json() as Promise<AuthResponse>;
+}
+
+export async function register(username: string, email: string, password: string): Promise<AuthResponse> {
+    const response = await fetch(`${BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+    });
+
+    return response.json() as Promise<AuthResponse>;
+}
+
+export async function refreshToken(refreshToken: string): Promise<AuthResponse> {
+    const response = await fetch(`${BASE_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refreshToken }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to refresh token');
+    }
+
+    return response.json() as Promise<AuthResponse>;
 }

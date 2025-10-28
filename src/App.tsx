@@ -8,6 +8,7 @@ const App: React.FC = () => {
     const [token, setToken] = useState<string | null>(
         localStorage.getItem("accessToken")
     );
+    const [view, setView] = useState<'login' | 'register'>("login");
 
     const handleLogout = () => {
         localStorage.removeItem("accessToken");
@@ -17,15 +18,19 @@ const App: React.FC = () => {
 
     return (
         <div>
-            {token ?
+            {token ? (
                 <Dashboard token={token} onLogout={handleLogout} />
-                :
+            ) : view === 'login' ? (
                 <LoginForm
                     onLogin={(accessToken, refreshToken) => {
-                    localStorage.setItem("accessToken", accessToken);
-                    localStorage.setItem("refreshToken", refreshToken);
-                    setToken(accessToken);
-                }}/>}
+                        localStorage.setItem("accessToken", accessToken);
+                        localStorage.setItem("refreshToken", refreshToken);
+                        setToken(accessToken);
+                    }}
+                />
+            ) : (
+                <div>Register</div>
+            )}
         </div>
     );
 }
