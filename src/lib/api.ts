@@ -17,8 +17,6 @@ export const setAccessToken = (token: string | null) => {
 
 export const getAccessToken = () => accessToken;
 
-export const getRefreshToken = () => localStorage.getItem('refreshToken');
-
 export const setRefreshToken = (token: string) => {
     if (token) {
         localStorage.setItem('refreshToken', token);
@@ -26,6 +24,8 @@ export const setRefreshToken = (token: string) => {
         localStorage.removeItem('refreshToken');
     }
 }
+
+export const getRefreshToken = () => localStorage.getItem('refreshToken');
 
 api.interceptors.request.use(
     (config) => {
