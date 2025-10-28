@@ -1,16 +1,16 @@
-import { useState } from 'react'
+import {useState} from 'react'
 import './App.css'
-import MobileMenu from "@/components/layout/MobileMenu.tsx";
+import {StoragePage} from '@/features/storage';
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-    <>
-        <h1 className="text-5xl">Automagic Food Tracker</h1>
-        <MobileMenu />
-    </>
-  )
+    return (
+        <>
+            <StoragePage/>
+        </>
+    )
 }
 
 export default App
