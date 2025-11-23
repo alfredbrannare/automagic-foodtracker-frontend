@@ -9,3 +9,16 @@ const apiClient = axios.create({
 });
 
 export default apiClient;
+
+apiClient.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const status = error.response?.status;
+
+        if (status === 401 || status === 403) {
+            console.log("Authentication failed. Forcing logout.")
+        }
+
+        return Promise.reject(error);
+    }
+)

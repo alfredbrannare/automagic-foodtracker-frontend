@@ -1,36 +1,33 @@
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import "./App.css"
-import LoginForm from "./components/LoginForm.tsx"
-import Dashboard from "./components/Dashboard.tsx"
-
+import apiClient from "./api/apiClient"
+import Dashboard from "./components/Dashboard"
 
 const App: React.FC = () => {
-    const [token, setToken] = useState<string | null>(
-        localStorage.getItem("accessToken")
-    );
-    const [view, setView] = useState<'login' | 'register'>("login");
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleLogout = () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        setToken(null);
-    };
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                await apiClient('/user/me')
+                setIsAuthenticated(true);
+            } catch (error) {
+                setIsAuthenticated(false);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        checkAuth();
+    }, []);
+
+    /*if (isLoading) {
+        return <div>Loading...</div>;
+    }*/
 
     return (
         <div>
-            {token ? (
-                <Dashboard token={token} onLogout={handleLogout} />
-            ) : view === 'login' ? (
-                <LoginForm
-                    onLogin={(accessToken, refreshToken) => {
-                        localStorage.setItem("accessToken", accessToken);
-                        localStorage.setItem("refreshToken", refreshToken);
-                        setToken(accessToken);
-                    }}
-                />
-            ) : (
-                <div>Register</div>
-            )}
+            <Dashboard />
         </div>
     );
 }
