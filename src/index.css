@@ -51,7 +51,7 @@
 :root {
     --elevated-bg: #161616;
     --text-white: #D5E9C5;
-    --lines: #202020;
+    --lines: oklch(1 0 0 / 0.1);
     --green: #5EDE4D;
     --red: #DE4D4D;
     --yellow: #DECD4D;
