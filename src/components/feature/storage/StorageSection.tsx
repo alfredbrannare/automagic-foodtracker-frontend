@@ -1,11 +1,10 @@
-import { useState } from "react";
-import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator} from "../../ui";
-import { StorageItem } from "./StorageItem";
-import { useStorage } from "@/hooks/useStorage.ts";
+import {useState} from "react";
+import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer} from "../../ui";
+import {StorageItem} from "./StorageItem";
+import {useStorage} from "@/hooks/useStorage.ts";
 
 export const StorageSection = () => {
-
-    if (loading) return <p>Loading...</p>;
+    const {storageItems, loading, error} = useStorage();
 
     return (
         <Card className="bg-elevated-bg m-2">
@@ -16,9 +15,15 @@ export const StorageSection = () => {
                 <div className="my-4">
                     <Separator/>
                 </div>
-                {}
-                <StorageItem/>
-                <StorageItem/>
+                {loading ? (
+                    <LoadingContainer message="Loading storage items..."/>
+                ) : error ? (
+                    <ErrorContainer title="Unable to fetch storage items" description="This is boilerplate crazy code, you couldn't fetch the info because of some reason"/>
+                    ) : (
+                    <>
+                        <StorageItem/>
+                    </>
+                )}
             </CardContent>
         </Card>
     )

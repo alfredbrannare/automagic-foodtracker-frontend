@@ -1,5 +1,5 @@
 import apiClient from "@/api/apiClient.ts";
-import { StorageItem, CreateStorageRequest, UpdateStorageRequest, StorageResponse } from '../types/storage/index';
+import type { StorageResponse, CreateStorageRequest, UpdateStorageRequest } from '../types/storage';
 
 export const getStorageItems = async (): Promise<StorageResponse[]> => {
     const response = await apiClient.get('/storage');
@@ -12,12 +12,12 @@ export const createStorageItem = async (data: CreateStorageRequest): Promise<Sto
     return response.data;
 }
 
-export const updateStorageItem = async (id: String, data: UpdateStorageRequest): Promise<StorageResponse> => {
+export const updateStorageItem = async (id: string, data: UpdateStorageRequest): Promise<StorageResponse> => {
     const response = await apiClient.put(`/storage/${id}`, data);
 
     return response.data;
 };
 
-export const deleteStorageItem = async (id: String): Promise<void> => {
+export const deleteStorageItem = async (id: string): Promise<void> => {
     await apiClient.delete(`/storage/${id}`);
 }

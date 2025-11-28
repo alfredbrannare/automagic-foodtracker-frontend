@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getStorageItems } from '../api/storage';
-import { StorageResponse } from '../types/storage/index';
+import type { StorageResponse } from '../types/storage/index';
 
 export const useStorage = () => {
     const [storageItems, setStorageItems] = useState<StorageResponse[]>([]);
