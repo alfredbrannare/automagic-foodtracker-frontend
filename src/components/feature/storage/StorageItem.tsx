@@ -1,7 +1,19 @@
 import {Progress, Separator} from "../../ui";
 import {GiHamburgerMenu} from "react-icons/gi";
 
-export const StorageItem = () => {
+interface StorageItemProps {
+    id: number;
+    name: string;
+    totalWeight: number;
+    consumedWeight: number;
+    mealsLeft: number;
+    mealsLeftPercentage: number;
+    lowstock: boolean;
+    onRemove: () => void;
+    onEdit: () => void;
+}
+
+export const StorageItem = (props: StorageItemProps) => {
     return (
         <div>
             <div className="flex justify-between mb-1">

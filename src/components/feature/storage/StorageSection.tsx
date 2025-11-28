@@ -1,7 +1,12 @@
-import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator, Progress} from "../../ui";
+import { useState } from "react";
+import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator} from "../../ui";
 import { StorageItem } from "./StorageItem";
+import { useStorage } from "@/hooks/useStorage.ts";
 
 export const StorageSection = () => {
+
+    if (loading) return <p>Loading...</p>;
+
     return (
         <Card className="bg-elevated-bg m-2">
             <CardHeader className="text-center">
@@ -11,6 +16,7 @@ export const StorageSection = () => {
                 <div className="my-4">
                     <Separator/>
                 </div>
+                {}
                 <StorageItem/>
                 <StorageItem/>
             </CardContent>

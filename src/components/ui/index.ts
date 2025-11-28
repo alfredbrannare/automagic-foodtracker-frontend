@@ -6,3 +6,5 @@ export * from "./separator.tsx";
 export * from "./input.tsx";
 export * from "./card.tsx";
 export * from "./separator";
+export * from "./spinner";
+export * from "./item.tsx";
