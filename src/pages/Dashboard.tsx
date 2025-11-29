@@ -5,9 +5,11 @@ import { StorageProvider } from "../context/StorageContext";
 export const Dashboard = () => {
     return (
         <StorageProvider>
-        <main className="min-h-screen">
+        <main className="min-h-screen m-2">
             <NavigationBar />
-            <StorageSection />
+            <div className="flex flex-col items-center">
+                <StorageSection />
+            </div>
         </main>
         </StorageProvider>
     );

@@ -17,7 +17,9 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
             const data = await getStorageItems();
             setStorageItems(data);
         } catch (error) {
-            setError("Failed to fetch storage items");
+            if (error instanceof Error) {
+                setError(error.message);
+            }
             console.error(error);
         } finally {
             setLoading(false);

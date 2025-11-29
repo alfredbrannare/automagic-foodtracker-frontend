@@ -11,3 +11,4 @@ export * from "./item.tsx";
 export * from "./loading-container.tsx"
 export * from "./error-container.tsx"
 export * from "./alert.tsx"
+export * from "./collapsible"
