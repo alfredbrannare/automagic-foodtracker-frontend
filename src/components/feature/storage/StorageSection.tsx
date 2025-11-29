@@ -1,10 +1,9 @@
-import {useState} from "react";
 import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer} from "../../ui";
 import {StorageItem} from "./StorageItem";
-import {useStorage} from "@/hooks/useStorage.ts";
+import { useStorageContext } from "../../../hooks/useStorage.ts";
 
 export const StorageSection = () => {
-    const {storageItems, loading, error} = useStorage();
+    const {storageItems, loading, error} = useStorageContext();
 
     return (
         <Card className="bg-elevated-bg m-2">
@@ -21,7 +20,20 @@ export const StorageSection = () => {
                     <ErrorContainer title="Unable to fetch storage items" description="This is boilerplate crazy code, you couldn't fetch the info because of some reason"/>
                     ) : (
                     <>
-                        <StorageItem/>
+                        {storageItems.map(item => (
+                            <StorageItem
+                                key={item.id}
+                                id={item.id}
+                                name={item.name}
+                                totalWeight={item.totalWeight}
+                                consumedWeight={item.consumedWeight}
+                                mealsLeft={item.mealsLeft}
+                                mealsLeftPercentage={item.mealsLeftPercentage}
+                                lowstock={item.lowStock}
+                                onRemove={() => {}}
+                                onEdit={() => {}}
+                            />
+                        ))}
                     </>
                 )}
             </CardContent>

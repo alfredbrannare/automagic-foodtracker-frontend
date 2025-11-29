@@ -29,6 +29,7 @@ export interface StorageResponse {
     totalWeight: number;
     consumedWeight: number;
     weightPerMeal: number;
+    nutritionPer100g: Nutrition;
     lowStockThreshold: number;
     createdAt: string;
     updatedAt: string;
@@ -36,4 +37,17 @@ export interface StorageResponse {
     mealsLeft: number;
     mealsLeftPercentage: number;
     lowStock: boolean;
+}
+
+export interface StorageContextTypes {
+    storageItems: StorageResponse[];
+    loading: boolean;
+    error: string | null;
+    refetch: () => Promise<void>;
+    removeItem: (id: string) => Promise<void>;
+    updateItem: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+}
+
+export interface StorageProviderProps {
+    children: React.ReactNode;
 }

@@ -1,36 +1,12 @@
-import { useState, useEffect } from 'react';
-import { getStorageItems } from '../api/storage';
-import type { StorageResponse } from '../types/storage/index';
+import { useContext } from "react";
+import { StorageContext } from "../context/StorageContext";
 
-export const useStorage = () => {
-    const [storageItems, setStorageItems] = useState<StorageResponse[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+export const useStorageContext = () => {
+    const context = useContext(StorageContext);
 
-    const fetchStorageItems = async () => {
-        try {
-            setLoading(true);
-            setError(null);
+    if (context === null) {
+        throw new Error("useStorageContext must be used within a StorageProvider");
+    }
 
-            const data = await getStorageItems();
-            setStorageItems(data);
-        } catch (error) {
-            setError("Failed to fetch storage items");
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchStorageItems();
-    }, []);
-
-    return {
-        storageItems,
-        loading,
-        error,
-        refetch: fetchStorageItems
-    };
+    return context;
 };
-
