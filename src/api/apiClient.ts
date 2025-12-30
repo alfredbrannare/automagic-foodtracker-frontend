@@ -43,7 +43,7 @@ apiClient.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                await apiClient.post('auth/refresh');
+                await apiClient.post('/auth/refresh');
 
                 processQueue(null);
                 isRefreshing = false;

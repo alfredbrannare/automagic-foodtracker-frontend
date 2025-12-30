@@ -3,7 +3,7 @@ import {StorageItem} from "./StorageItem";
 import { useStorageContext } from "../../../hooks/useStorage.ts";
 
 export const StorageSection = () => {
-    const {storageItems, loading, error} = useStorageContext();
+    const {storageItems, loading, error, removeItem, updateItem} = useStorageContext();
 
     return (
         <Card className="bg-elevated-bg max-w-5xl w-full">
@@ -23,15 +23,9 @@ export const StorageSection = () => {
                         {storageItems.map(item => (
                             <StorageItem
                                 key={item.id}
-                                id={item.id}
-                                name={item.name}
-                                totalWeight={item.totalWeight}
-                                consumedWeight={item.consumedWeight}
-                                mealsLeft={item.mealsLeft}
-                                mealsLeftPercentage={item.mealsLeftPercentage}
-                                lowstock={item.lowStock}
-                                onRemove={() => {}}
-                                onEdit={() => {}}
+                                item={item}
+                                onRemove={() => removeItem(item.id)}
+                                onEdit={() => console.log('Edit', item.id)}
                             />
                         ))}
                     </>
