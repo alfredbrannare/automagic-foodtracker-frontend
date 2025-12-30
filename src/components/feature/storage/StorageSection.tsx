@@ -3,7 +3,7 @@ import {StorageItem} from "./StorageItem";
 import { useStorageContext } from "../../../hooks/useStorage.ts";
 
 export const StorageSection = () => {
-    const {storageItems, loading, error, removeItem, updateItem} = useStorageContext();
+    const { storageItems, loading, error, removeItem, updateItem } = useStorageContext();
 
     return (
         <Card className="bg-elevated-bg max-w-5xl w-full">

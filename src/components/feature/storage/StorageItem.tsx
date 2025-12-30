@@ -5,6 +5,7 @@ import { TiDelete } from "react-icons/ti";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import type {StorageResponse} from "@/types/storage";
+import { UpdateStorageDialog } from "./UpdateStorageDialog";
 
 
 interface StorageItemProps {
@@ -56,6 +57,9 @@ export const StorageItem = ({ item, onRemove, onEdit }: StorageItemProps) => {
             </div>
             <div className="my-4">
                 <Separator/>
+            </div>
+            <div>
+                <UpdateStorageDialog item={item} />
             </div>
         </div>
     );
