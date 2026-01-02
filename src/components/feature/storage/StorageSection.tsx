@@ -25,7 +25,7 @@ export const StorageSection = () => {
                                 key={item.id}
                                 item={item}
                                 onRemove={() => removeItem(item.id)}
-                                onEdit={() => console.log('Edit', item.id)}
+                                onUpdate={updateItem}
                             />
                         ))}
                     </>

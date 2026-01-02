@@ -1,20 +1,19 @@
 import {Progress, Separator} from "../../ui";
 import {GiHamburgerMenu} from "react-icons/gi";
-import { FaEdit } from "react-icons/fa";
-import { TiDelete } from "react-icons/ti";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import type {StorageResponse} from "@/types/storage";
 import { UpdateStorageDialog } from "./UpdateStorageDialog";
+import type { UpdateStorageRequest } from "@/types/storage";
 
 
 interface StorageItemProps {
     item: StorageResponse;
     onRemove: () => void;
-    onEdit: () => void;
+    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
 }
 
-export const StorageItem = ({ item, onRemove, onEdit }: StorageItemProps) => {
+export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const remainingWeight:number = item.totalWeight - item.consumedWeight;
@@ -46,7 +45,7 @@ export const StorageItem = ({ item, onRemove, onEdit }: StorageItemProps) => {
                     indicatorClassName={getProgressColor()}
                 />
                 <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0'}`}>
-                    <FaEdit className="w-10 h-10 text-yellow cursor-pointer" onClick={onEdit}/>
+                    <UpdateStorageDialog item={item} onUpdate={onUpdate} />
                     <FaTrash className="w-7.5 h-7.5 text-red cursor-pointer mr-3" onClick={onRemove}/>
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>
@@ -57,9 +56,6 @@ export const StorageItem = ({ item, onRemove, onEdit }: StorageItemProps) => {
             </div>
             <div className="my-4">
                 <Separator/>
-            </div>
-            <div>
-                <UpdateStorageDialog item={item} />
             </div>
         </div>
     );
