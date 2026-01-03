@@ -1,9 +1,4 @@
-export interface Nutrition {
-    protein: number;
-    carbs: number;
-    fat: number;
-    kcal: number;
-}
+import type { Nutrition } from "../nutrition";
 
 export interface CreateStorageRequest {
     name: string;

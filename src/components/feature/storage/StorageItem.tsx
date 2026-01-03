@@ -45,7 +45,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
                     className="h-6 mr-3 rounded-sm bg-zinc-900"
                     indicatorClassName={getProgressColor()}
                 />
-                <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-55 opacity-100' : 'w-0 opacity-0'}`}>
+                <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-80 opacity-100' : 'w-0 opacity-0'}`}>
                     <UpdateStorageDialog item={item} onUpdate={onUpdate} />
                     <DeleteStorageDialog item={item} onRemove={onRemove} />
                 </div>
