@@ -24,7 +24,7 @@ export const StorageSection = () => {
                             <StorageItem
                                 key={item.id}
                                 item={item}
-                                onRemove={() => removeItem(item.id)}
+                                onRemove={removeItem}
                                 onUpdate={updateItem}
                             />
                         ))}

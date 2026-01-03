@@ -5,11 +5,12 @@ import { FaTrash } from "react-icons/fa";
 import type {StorageResponse} from "@/types/storage";
 import { UpdateStorageDialog } from "./UpdateStorageDialog";
 import type { UpdateStorageRequest } from "@/types/storage";
+import {DeleteStorageDialog} from "@/components/feature/storage/DeleteStorageDialog.tsx";
 
 
 interface StorageItemProps {
     item: StorageResponse;
-    onRemove: () => void;
+    onRemove: (id: string) => Promise<void>;
     onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
 }
 
@@ -44,9 +45,9 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
                     className="h-6 mr-3 rounded-sm bg-zinc-900"
                     indicatorClassName={getProgressColor()}
                 />
-                <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0'}`}>
+                <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-55 opacity-100' : 'w-0 opacity-0'}`}>
                     <UpdateStorageDialog item={item} onUpdate={onUpdate} />
-                    <FaTrash className="w-7.5 h-7.5 text-red cursor-pointer mr-3" onClick={onRemove}/>
+                    <DeleteStorageDialog item={item} onRemove={onRemove} />
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>
                 <GiHamburgerMenu
