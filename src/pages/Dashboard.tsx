@@ -3,9 +3,11 @@ import {StorageSection} from "../components/feature/index";
 import {StorageProvider} from "../context/StorageContext";
 import {NutritionProvider} from "@/context/NutritionContext.tsx";
 import {NutritionSection} from "@/components/feature/nutrition/NutritionSection.tsx";
+import {UserProvider} from "@/context/UserContext.tsx";
 
 export const Dashboard = () => {
     return (
+        <UserProvider>
         <StorageProvider>
             <NutritionProvider>
                     <main className="min-h-screen m-2">
@@ -17,5 +19,6 @@ export const Dashboard = () => {
                     </main>
             </NutritionProvider>
         </StorageProvider>
+        </UserProvider>
     );
 }

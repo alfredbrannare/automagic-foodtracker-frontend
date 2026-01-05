@@ -1,4 +1,4 @@
-import {Progress, Separator} from "../../ui";
+import {Label, Progress, Separator} from "../../ui";
 import {GiHamburgerMenu} from "react-icons/gi";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
@@ -32,7 +32,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
     return (
         <div>
             <div className="flex justify-between mb-1">
-                <span>{item.name}</span>
+                <Label>{item.name}</Label>
                 <span>{item.mealsLeftPercentage}%</span>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground mb-2">
@@ -42,7 +42,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
             <div className="flex justify-between items-center">
                 <Progress
                     value={item.mealsLeftPercentage}
-                    className="h-6 mr-3 rounded-sm bg-zinc-900"
+                    className="h-6 mr-3 rounded-sm bg-prog-bg"
                     indicatorClassName={getProgressColor()}
                 />
                 <div className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-80 opacity-100' : 'w-0 opacity-0'}`}>
