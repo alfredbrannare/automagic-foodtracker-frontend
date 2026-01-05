@@ -11,7 +11,7 @@ export const StorageSection = () => {
                 <CardTitle className="text-amft-white text-2xl">Storage</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col justify-between">
-                <div className="my-4">
+                <div className="my-2">
                     <Separator/>
                 </div>
                 {loading ? (

@@ -33,7 +33,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
         <div>
             <div className="flex justify-between mb-1">
                 <Label>{item.name}</Label>
-                <span>{item.mealsLeftPercentage}%</span>
+                <Label>{item.mealsLeftPercentage}%</Label>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground mb-2">
                 <span>{item.consumedWeight}g of {item.totalWeight}g</span>
