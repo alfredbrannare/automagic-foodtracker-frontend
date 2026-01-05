@@ -32,7 +32,7 @@ export const NutritionItem = ({ label, value, goal }: NutritionItemProps) => {
     return (
         <div className="flex flex-col gap-2 min-w-[20px] my-2">
             <div className="flex justify-between">
-                <Label htmlFor={label}>{label.charAt(0).toUpperCase() + label.slice(1)} {Math.round(percentage)}%</Label>
+                <Label htmlFor={label}>{label.charAt(0).toUpperCase() + label.slice(1)} ({Math.round(percentage)}%)</Label>
                 <Label>{value}g of {goalValue}g</Label>
             </div>
         <Progress

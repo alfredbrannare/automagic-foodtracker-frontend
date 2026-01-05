@@ -51,7 +51,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>
                 <GiHamburgerMenu
-                    className="text-lines text-3xl cursor-pointer"
+                    className="text-lines text-3xl cursor-pointer transition-transform duration-300 hover:scale-110"
                 />
                 </button>
             </div>

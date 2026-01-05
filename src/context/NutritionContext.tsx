@@ -29,7 +29,7 @@ export const NutritionProvider: React.FC<NutritionProviderProps> = ({ children }
     }
 
     useEffect(() => {
-        fetchItems();
+        fetchItems(selectedDate);
     }, [selectedDate]);
 
     const changeDate = (days: number) => {
