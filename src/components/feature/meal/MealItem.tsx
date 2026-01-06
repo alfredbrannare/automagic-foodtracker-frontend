@@ -17,12 +17,12 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
     return (
         <div>
             <div className="flex flex-row justify-between items-center">
-                <div className="w-15 flex-shrink-0">
+                <div className="w-15 flex-shrink-0 sm:w-20 md:w-25 lg:w-40">
                     <Label className="text-md truncate block">{item.name}</Label>
                     <span className="text-sm">{item.weight}g</span>
                 </div>
                 {!isExpanded &&
-                    <div className="flex-grow grid grid-cols-2 md:grid-cols-4 gap-x-4 items-center mt-2 mx-2">
+                    <div className="flex-grow grid grid-cols-2 sm:grid-cols-4 items-center mt-2 ml-8">
                         {Object.entries(item.nutrition).map(([key, value]) => (
                             <div key={key} className="flex gap-1 mr-3 text-center items-center">
                                 <Progress
