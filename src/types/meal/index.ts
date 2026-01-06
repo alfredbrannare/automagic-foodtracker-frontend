@@ -13,7 +13,7 @@ export interface UpdateMealRequest {
     weight: number;
     nutrition: Nutrition;
     consumedAt: string;
-    storageId?: string;
+    storageId?: string | null;
 }
 
 export interface MealResponse {
