@@ -5,6 +5,7 @@ import {NutritionProvider} from "@/context/NutritionContext.tsx";
 import {NutritionSection} from "@/components/feature/nutrition/NutritionSection.tsx";
 import {UserProvider} from "@/context/UserContext.tsx";
 import {MealProvider} from "@/context/MealContext.tsx";
+import {MealSection} from "@/components/feature/meal/MealSection.tsx";
 
 export const Dashboard = () => {
     return (
@@ -17,6 +18,7 @@ export const Dashboard = () => {
                             <div className="flex flex-col items-center gap-4">
                                 <StorageSection/>
                                 <NutritionSection/>
+                                <MealSection/>
                             </div>
                         </main>
                     </NutritionProvider>
