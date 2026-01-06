@@ -29,8 +29,8 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                                     className="h-3 w-3 mr-1 rounded-sm bg-prog-bg z-0 max-[364px]:hidden"
                                     indicatorClassName="bg-green-500"
                                 />
-                                <span className="text-[0.7rem]">{key}</span>
-                                <span className="text-[0.7rem]">{value}g</span>
+                                <span className="text-[0.7rem] md:text-sm">{key}</span>
+                                <span className="text-[0.7rem] md:text-sm">{value}g</span>
                             </div>
                         ))}
                     </div>
