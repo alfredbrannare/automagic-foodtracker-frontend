@@ -49,6 +49,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
         } catch (error) {
             setError("Failed to update item");
             console.error(error);
+            throw error;
         } finally {
             setLoading(false);
         }
