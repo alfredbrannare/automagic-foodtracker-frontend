@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Button} from "@/components/ui/button"
 import {
     Dialog,
@@ -10,10 +10,14 @@ import {
     DialogTitle,
     DialogTrigger,
     Input,
-    Label
+    Label,
+    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from "../../ui/index.ts"
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {MealResponse, UpdateMealRequest} from "@/types/meal";
+import {useStorageContext} from "@/hooks/useStorage.ts";
+
+const NONE = "__none__";
 
 interface UpdateMealDialogProps {
     item: MealResponse;
@@ -21,6 +25,8 @@ interface UpdateMealDialogProps {
 }
 
 export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
+    const {storageItems, loading: storageLoading} = useStorageContext();
+
     const [formData, setFormData] = useState<UpdateMealRequest>({
         name: item.name,
         weight: item.weight,
@@ -34,6 +40,33 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
         storageId: item.storageId
     });
 
+    const isFromStorage = formData.storageId !== null;
+
+    useEffect(() => {
+        if (!formData.storageId) {
+            setFormData((prev) => ({
+                ...prev,
+                name: item.name,
+                nutrition: {...item.nutrition},
+            }));
+            return;
+        }
+
+        const storageItem = storageItems.find((si) => si.id === formData.storageId);
+        if (!storageItem) return;
+
+        setFormData((prev) => ({
+            ...prev,
+            name: storageItem.name,
+            nutrition: {
+                protein: storageItem.nutritionPer100g.protein,
+                kcal: storageItem.nutritionPer100g.kcal,
+                carbs: storageItem.nutritionPer100g.carbs,
+                fat: storageItem.nutritionPer100g.fat
+            }
+        }))
+    }, [formData.storageId, storageItems, item]);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onUpdate(item.id, formData);
@@ -41,11 +74,11 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
 
     return (
         <Dialog>
-                <DialogTrigger asChild>
-                    <Button variant="outline">Update</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <form onSubmit={handleSubmit}>
+            <DialogTrigger asChild>
+                <Button variant="outline">Update</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <form onSubmit={handleSubmit}>
 
                     <DialogHeader className="mb-4">
                         <DialogTitle>Update {item.name}</DialogTitle>
@@ -56,8 +89,33 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                     <div className="grid gap-4">
 
                         <div className="grid gap-3">
+                            <Label htmlFor="storage-1">Storage</Label>
+                            <Select
+                                value={formData.storageId ?? NONE}
+                                onValueChange={(value) =>
+                                    setFormData((prev) => ({
+                                        ...prev,
+                                        storageId: value === NONE ? null : value,
+                                    }))
+                                }
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select from storage"/>
+                                </SelectTrigger>
+
+                                <SelectContent>
+                                    <SelectItem value="__none__">
+                                        None
+                                    </SelectItem>
+                                    {storageItems.map((storageItem, index) => (
+                                        <SelectItem key={index} value={storageItem.id}>
+                                            {storageItem.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                             <Label htmlFor="name-1">Name</Label>
-                            <Input id="name-1" name="name" value={formData.name}
+                            <Input id="name-1" disabled={isFromStorage} name="name" value={formData.name}
                                    onChange={(e) => setFormData({...formData, name: e.target.value})} required={true}/>
                         </div>
 
@@ -85,7 +143,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div className="grid gap-3">
                                         <Label htmlFor="protein-1">Protein (g)</Label>
-                                        <Input id="protein-1" name="protein" type="number"
+                                        <Input id="protein-1" disabled={isFromStorage} name="protein" type="number"
                                                value={formData.nutrition.protein} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
@@ -96,7 +154,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="calories-1">Calories</Label>
-                                        <Input id="calories-1" name="calories" type="number"
+                                        <Input id="calories-1" disabled={isFromStorage} name="calories" type="number"
                                                value={formData.nutrition.kcal} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
@@ -110,7 +168,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div className="grid gap-3">
                                         <Label htmlFor="carbs-1">Carbs (g)</Label>
-                                        <Input id="carbs-1" name="carbs" type="number"
+                                        <Input id="carbs-1" disabled={isFromStorage} name="carbs" type="number"
                                                value={formData.nutrition.carbs} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
@@ -121,7 +179,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="fat-1">Fat (g)</Label>
-                                        <Input id="fat-1" name="fat" type="number" value={formData.nutrition.fat}
+                                        <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={formData.nutrition.fat}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutrition: {
@@ -142,8 +200,8 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                             <Button type="submit">Save changes</Button>
                         </DialogClose>
                     </DialogFooter>
-                    </form>
-                </DialogContent>
+                </form>
+            </DialogContent>
         </Dialog>
     );
 };

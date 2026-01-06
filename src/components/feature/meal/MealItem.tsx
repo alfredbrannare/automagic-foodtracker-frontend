@@ -37,7 +37,7 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                     </div>
                 }
                 <div
-                    className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'w-80 opacity-100' : 'w-0 opacity-0'}`}>
+                    className={`flex items-center gap-2 transition-all duration-300 overflow-hidden ${isExpanded ? 'opacity-100' : 'w-0 opacity-0'}`}>
                     <UpdateMealDialog
                         item={item}
                         onUpdate={onUpdate}

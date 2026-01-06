@@ -2,6 +2,7 @@ import {Card, CardContent, CardHeader, CardTitle, ErrorContainer, LoadingContain
 import {StorageItem} from "@/components/feature/storage/StorageItem.tsx";
 import {useMealContext} from "@/hooks/useMeal.ts";
 import {MealItem} from "@/components/feature/meal/MealItem.tsx";
+import {useStorageContext} from "@/hooks/useStorage.ts";
 
 export const MealSection = () => {
     const { mealItems, loading, error, removeItem, updateItem } = useMealContext();
