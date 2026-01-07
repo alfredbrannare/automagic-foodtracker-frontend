@@ -18,6 +18,10 @@ export const StorageSection = () => {
                     <LoadingContainer message="Loading storage items..."/>
                 ) : error ? (
                     <ErrorContainer title="Unable to fetch storage items" description={error}/>
+                    ) : storageItems.length === 0 ? (
+                    <span className="text-center">
+                        You've not registered any storage items
+                    </span>
                     ) : (
                     <>
                         {storageItems.map(item => (
