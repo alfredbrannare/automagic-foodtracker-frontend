@@ -1,8 +1,9 @@
 import apiClient from "@/api/apiClient.ts";
 import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 
-export const getMealItems = async (): Promise<MealResponse> => {
-    const response = await apiClient.get('/meals');
+export const getMealItems = async (date?: string): Promise<MealResponse[]> => {
+    const params = date ? { date } : {};
+    const response = await apiClient.get('/meals', { params });
 
     return response.data;
 }

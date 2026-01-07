@@ -29,7 +29,7 @@ export interface MealContextTypes {
     mealItems: MealResponse[];
     loading: boolean;
     error: string | null;
-    refetch: () => Promise<void>;
+    refetch: (date?: Date) => Promise<void>;
     removeItem: (id: string) => Promise<void>;
     updateItem: (id: string, data: UpdateMealRequest) => Promise<MealResponse>;
 }
