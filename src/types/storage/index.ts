@@ -18,7 +18,7 @@ export interface UpdateStorageRequest {
     createdAt?: string;
 }
 
-export interface StorageResponse {
+export interface MealResponse {
     id: string;
     name: string;
     totalWeight: number;
@@ -35,12 +35,12 @@ export interface StorageResponse {
 }
 
 export interface StorageContextTypes {
-    storageItems: StorageResponse[];
+    storageItems: MealResponse[];
     loading: boolean;
     error: string | null;
     refetch: () => Promise<void>;
     removeItem: (id: string) => Promise<void>;
-    updateItem: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+    updateItem: (id: string, data: UpdateStorageRequest) => Promise<MealResponse>;
 }
 
 export interface StorageProviderProps {

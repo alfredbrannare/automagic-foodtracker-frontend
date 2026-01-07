@@ -4,6 +4,7 @@ import {Label, Progress, Separator} from "@/components/ui";
 
 import {GiHamburgerMenu} from "react-icons/gi";
 import {UpdateMealDialog} from "@/components/feature/meal/UpdateMealDialog.tsx";
+import {DeleteMealDialog} from "@/components/feature/meal/DeleteMealDialog.tsx";
 
 interface MealItemProps {
     item: MealResponse;
@@ -41,6 +42,10 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                     <UpdateMealDialog
                         item={item}
                         onUpdate={onUpdate}
+                    />
+                    <DeleteMealDialog
+                        item={item}
+                        onRemove={onRemove}
                     />
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)} className="justify-end">

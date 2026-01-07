@@ -9,14 +9,14 @@ import {
     DialogTitle,
     DialogTrigger
 } from "../../ui/index.ts"
-import type {MealResponse} from "@/types/storage";
+import type {MealResponse} from "@/types/meal";
 
-interface DeleteStorageDialogProps {
+interface DeleteMealDialogProps {
     item: MealResponse;
     onRemove: (id: string) => Promise<void>;
 }
 
-export const DeleteStorageDialog = ({item, onRemove}: DeleteStorageDialogProps) => {
+export const DeleteMealDialog = ({item, onRemove}: DeleteMealDialogProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

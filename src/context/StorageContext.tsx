@@ -1,11 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import type {StorageContextTypes, StorageProviderProps, StorageResponse, UpdateStorageRequest} from "@/types/storage";
+import type {StorageContextTypes, StorageProviderProps, MealResponse, UpdateStorageRequest} from "@/types/storage";
 import { getStorageItems, updateStorageItem, deleteStorageItem } from "../api/storage";
 
 export const StorageContext = createContext<StorageContextTypes | null>(null);
 
 export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) => {
-    const [storageItems, setStorageItems] = useState<StorageResponse[]>([]);
+    const [storageItems, setStorageItems] = useState<MealResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

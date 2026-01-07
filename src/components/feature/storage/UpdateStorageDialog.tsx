@@ -12,13 +12,13 @@ import {
     Input,
     Label
 } from "../../ui/index.ts"
-import type {StorageResponse, UpdateStorageRequest} from "@/types/storage";
+import type {MealResponse, UpdateStorageRequest} from "@/types/storage";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import {ErrorInput} from "../../ui/index.ts";
 
 interface UpdateStorageDialogProps {
-    item: StorageResponse;
-    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+    item: MealResponse;
+    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<MealResponse>;
 }
 
 export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) => {

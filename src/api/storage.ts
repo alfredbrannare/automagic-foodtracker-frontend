@@ -1,18 +1,18 @@
 import apiClient from "@/api/apiClient.ts";
-import type { StorageResponse, CreateStorageRequest, UpdateStorageRequest } from '../types/storage';
+import type { MealResponse, CreateStorageRequest, UpdateStorageRequest } from '../types/storage';
 
-export const getStorageItems = async (): Promise<StorageResponse[]> => {
+export const getStorageItems = async (): Promise<MealResponse[]> => {
     const response = await apiClient.get('/storage');
 
     return response.data;
 };
 
-export const createStorageItem = async (data: CreateStorageRequest): Promise<StorageResponse> => {
+export const createStorageItem = async (data: CreateStorageRequest): Promise<MealResponse> => {
     const response = await apiClient.post('/storage', data);
     return response.data;
 }
 
-export const updateStorageItem = async (id: string, data: UpdateStorageRequest): Promise<StorageResponse> => {
+export const updateStorageItem = async (id: string, data: UpdateStorageRequest): Promise<MealResponse> => {
     const response = await apiClient.put(`/storage/${id}`, data);
 
     return response.data;

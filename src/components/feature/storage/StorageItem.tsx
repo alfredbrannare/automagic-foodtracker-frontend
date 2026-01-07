@@ -2,16 +2,16 @@ import {Label, Progress, Separator} from "../../ui";
 import {GiHamburgerMenu} from "react-icons/gi";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import type {StorageResponse} from "@/types/storage";
+import type {MealResponse} from "@/types/storage";
 import { UpdateStorageDialog } from "./UpdateStorageDialog";
 import type { UpdateStorageRequest } from "@/types/storage";
 import {DeleteStorageDialog} from "@/components/feature/storage/DeleteStorageDialog.tsx";
 
 
 interface StorageItemProps {
-    item: StorageResponse;
+    item: MealResponse;
     onRemove: (id: string) => Promise<void>;
-    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<MealResponse>;
 }
 
 export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
