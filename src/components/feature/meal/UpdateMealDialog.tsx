@@ -16,6 +16,7 @@ import {
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 import {useStorageContext} from "@/hooks/useStorage.ts";
+import {useNutritionContext} from "@/hooks/useNutrition.ts";
 
 const NONE = "__none__";
 
@@ -25,7 +26,8 @@ interface UpdateMealDialogProps {
 }
 
 export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
-    const {storageItems, loading: storageLoading} = useStorageContext();
+    const {storageItems, refetch: storageRefetch} = useStorageContext();
+    const {refetch: nutritionRefetch} = useNutritionContext();
 
     const [formData, setFormData] = useState<UpdateMealRequest>({
         name: item.name,
@@ -37,7 +39,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
             fat: item.nutrition.fat
         },
         consumedAt: item.consumedAt,
-        storageId: item.storageId
+        storageId: item.storageId === "null" ? null : item.storageId,
     });
 
     const isFromStorage = formData.storageId !== null;
@@ -70,6 +72,8 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onUpdate(item.id, formData);
+        await storageRefetch();
+        await nutritionRefetch();
     };
 
     return (
@@ -99,7 +103,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     }))
                                 }
                             >
-                                <SelectTrigger>
+                                <SelectTrigger className="w-full">
                                     <SelectValue placeholder="Select from storage"/>
                                 </SelectTrigger>
 

@@ -8,9 +8,7 @@ export const NavigationBar = () => {
         <nav>
             <Card className="flex flex-row fixed bottom-4 inset-x-2 md:inset-x-0 mx-auto max-w-3xl flex rounded-lg shadow
                 bg-elevated-bg justify-evenly p-2 items-center z-50">
-                <button>
                     <UpdateUserGoalsDialog />
-                </button>
 
                 <img
                     src="/AutomagicFoodTrackerLogo.png"

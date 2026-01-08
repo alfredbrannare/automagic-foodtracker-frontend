@@ -48,8 +48,9 @@ export const MealSection = () => {
                     </span>
                 ) : (
                     <>
-                        {mealItems.map(item => (
+                        {mealItems.map((item, index) => (
                             <MealItem
+                                key={index}
                                 item={item}
                                 onRemove={removeItem}
                                 onUpdate={updateItem}

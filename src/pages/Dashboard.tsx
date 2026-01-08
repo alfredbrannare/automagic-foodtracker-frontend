@@ -13,7 +13,7 @@ export const Dashboard = () => {
             <StorageProvider>
                 <MealProvider>
                     <NutritionProvider>
-                        <main className="min-h-screen m-2 pb-28">
+                        <main className="min-h-screen m-2 pb-30">
                             <NavigationBar/>
                             <div className="flex flex-col items-center gap-4">
                                 <StorageSection/>
