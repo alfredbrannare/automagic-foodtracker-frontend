@@ -2,7 +2,7 @@ import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 import {useState} from "react";
 import {Label, Progress, Separator} from "@/components/ui";
 
-import {GiHamburgerMenu} from "react-icons/gi";
+import { Menu } from 'lucide-react';
 import {UpdateMealDialog} from "@/components/feature/meal/UpdateMealDialog.tsx";
 import {DeleteMealDialog} from "@/components/feature/meal/DeleteMealDialog.tsx";
 
@@ -49,7 +49,7 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                     />
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)} className="justify-end">
-                    <GiHamburgerMenu
+                    <Menu
                         className="text-lines text-3xl cursor-pointer transition-transform duration-300 hover:scale-110"
                     />
                 </button>

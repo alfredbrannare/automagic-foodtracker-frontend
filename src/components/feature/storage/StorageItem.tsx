@@ -1,7 +1,6 @@
 import {Label, Progress, Separator} from "../../ui";
-import {GiHamburgerMenu} from "react-icons/gi";
+import { Menu } from 'lucide-react';
 import { useState } from "react";
-import { FaTrash } from "react-icons/fa";
 import type {MealResponse} from "@/types/storage";
 import { UpdateStorageDialog } from "./UpdateStorageDialog";
 import type { UpdateStorageRequest } from "@/types/storage";
@@ -50,7 +49,7 @@ export const StorageItem = ({ item, onRemove, onUpdate }: StorageItemProps) => {
                     <DeleteStorageDialog item={item} onRemove={onRemove} />
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>
-                <GiHamburgerMenu
+                <Menu
                     className="text-lines text-3xl cursor-pointer transition-transform duration-300 hover:scale-110"
                 />
                 </button>

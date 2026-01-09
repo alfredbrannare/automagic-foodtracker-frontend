@@ -12,6 +12,8 @@ export const AddItemDialog = () => {
             <DialogTrigger asChild>
                 <img
                     src="/AutomagicFoodTrackerLogo.png"
+                    width={109}
+                    height={80}
                     alt="Register Meal Button"
                     className="h-20 cursor-pointer transition-transform duration-300 hover:scale-110"
                 />
