@@ -83,6 +83,16 @@ export const AddStorageDialog = () => {
                                     }
                                 }} required={true}/>
                             </div>
+                            <div className="grid gap-3">
+                                <Label htmlFor="weight-2">Weight per meal (g)</Label>
+                                <Input id="weight-2" name="weightPerMeal" type="number" value={formData.weightPerMeal}
+                                onChange={(e) => setFormData({...formData, weightPerMeal: Number(e.target.value)})}></Input>
+                            </div>
+                            <div className="grid gap-3">
+                                <Label htmlFor="weight-2">Low stock threshold (g)</Label>
+                                <Input id="weight-2" name="lowStockThreshold" type="number" value={formData.lowStockThreshold}
+                                       onChange={(e) => setFormData({...formData, lowStockThreshold: Number(e.target.value)})}></Input>
+                            </div>
                         </div>
 
                         {formData.nutritionPer100g && (
@@ -150,6 +160,10 @@ export const AddStorageDialog = () => {
                     <div className="grid gap-3 justify-center mt-2 text-center">
                         {isNutritionPositive ? null : <ErrorInput description="Nutrition values must be positive"/>}
                         {isNameValid ? null : <ErrorInput description="You must enter a name for the storage"/>}
+                        {isThresholdLessThanTotalWeight ? null : <ErrorInput description="Low stock threshold must be lower than total weight."/>}
+                        {isThresholdPositive ? null : <ErrorInput description="Low stock threshold must be positive."/>}
+                        {isWeightPerMealLessThanTotalWeight ? null : <ErrorInput description="Weight per meal must be lower than total weight."/>}
+                        {isWeightPerMealPositive ? null : <ErrorInput description="Weight per meal must be positive."/>}
                     </div>
                 </form>
             </DialogContent>
