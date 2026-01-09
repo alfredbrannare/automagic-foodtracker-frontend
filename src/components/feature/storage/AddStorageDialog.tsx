@@ -1,29 +1,157 @@
 import {
-    Dialog,
+    Button,
+    Dialog, DialogClose,
     DialogContent,
-    DialogDescription,
+    DialogDescription, DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger, ErrorInput, Input,
     Label
 } from "@/components/ui";
-import { Warehouse } from "lucide-react";
+import {Warehouse} from "lucide-react";
+import {useStorageContext} from "@/hooks/useStorage.ts";
+import {useState} from "react";
+import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
+import type {CreateStorageRequest} from "@/types/storage";
 
 export const AddStorageDialog = () => {
+    const {createItem} = useStorageContext();
+
+    const [formData, setFormData] = useState<CreateStorageRequest>({
+        name: "",
+        nutritionPer100g: {
+            protein: 0,
+            kcal: 0,
+            fat: 0,
+            carbs: 0,
+        },
+        totalWeight: 0,
+        weightPerMeal: 0,
+        lowStockThreshold: 0,
+        createdAt: new Date().toISOString(),
+    });
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        await createItem(formData);
+    }
+
+    const isNutritionPositive = formData.nutritionPer100g.protein >= 0 && formData.nutritionPer100g.fat >= 0 && formData.nutritionPer100g.carbs >= 0 && formData.nutritionPer100g.kcal >= 0;
+    const isNameValid = formData.name.length > 0;
+    const isThresholdLessThanTotalWeight = formData.lowStockThreshold <= formData.totalWeight;
+    const isThresholdPositive = formData.lowStockThreshold >= 0;
+    const isWeightPerMealLessThanTotalWeight = formData.weightPerMeal <= formData.totalWeight;
+    const isWeightPerMealPositive = formData.weightPerMeal >= 0;
+    const isFormValid = isNutritionPositive && isNameValid && isThresholdLessThanTotalWeight && isThresholdPositive && isWeightPerMealLessThanTotalWeight && isWeightPerMealPositive;
+
     return (
         <Dialog>
             <DialogTrigger className="flex flex-col items-center">
                 <Warehouse className="text-amft-white h-20 cursor-pointer transition-transform duration-300 hover:scale-110" size={42}/>
                 <Label className="text-amft-white">Storage</Label>
             </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Add Storage</DialogTitle>
-                    <DialogDescription></DialogDescription>
-                </DialogHeader>
-                <div>
-                    <h1>Meal</h1>
-                </div>
+            <DialogContent className="sm:max-w-[425px]">
+                <form onSubmit={handleSubmit}>
+
+                    <DialogHeader className="mb-4">
+                        <DialogTitle>Create a Storage</DialogTitle>
+                        <DialogDescription>
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4">
+
+                        <div className="grid gap-3">
+                            <Label htmlFor="name-1">Name</Label>
+                            <Input id="name-1" name="name" value={formData.name}
+                                   onChange={(e) => setFormData({...formData, name: e.target.value})} required={true}/>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div className="grid gap-3">
+                                <Label htmlFor="weight-1">Total Weight (g)</Label>
+                                <Input id="weight-1" name="weight" type="number" value={formData.totalWeight}
+                                       onChange={(e) => setFormData({...formData, totalWeight: Number(e.target.value)})}
+                                       required={true}/>
+                            </div>
+                            <div className="grid gap-3">
+                                <Label htmlFor="date-1">Date</Label>
+                                <Input id="date-1" name="date" type="datetime-local"
+                                       value={formatDateForInput(formData.createdAt)} onChange={(e) => {
+                                    const instant = formatInputToInstant(e.target.value);
+                                    if (instant) {
+                                        setFormData({...formData, createdAt: instant});
+                                    }
+                                }} required={true}/>
+                            </div>
+                        </div>
+
+                        {formData.nutritionPer100g && (
+                            <>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="protein-1">Protein (per 100g)</Label>
+                                        <Input id="protein-1" name="protein" type="number"
+                                               value={formData.nutritionPer100g.protein} onChange={(e) => setFormData({
+                                            ...formData,
+                                            nutritionPer100g: {
+                                                ...formData.nutritionPer100g,
+                                                protein: Number(e.target.value)
+                                            }
+                                        })} required={true}/>
+                                    </div>
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="calories-1">Calories (per 100g)</Label>
+                                        <Input id="calories-1" name="calories" type="number"
+                                               value={formData.nutritionPer100g.kcal} onChange={(e) => setFormData({
+                                            ...formData,
+                                            nutritionPer100g: {
+                                                ...formData.nutritionPer100g,
+                                                kcal: Number(e.target.value)
+                                            }
+                                        })} required={true}/>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
+                                        <Input id="carbs-1" name="carbs" type="number"
+                                               value={formData.nutritionPer100g.carbs} onChange={(e) => setFormData({
+                                            ...formData,
+                                            nutritionPer100g: {
+                                                ...formData.nutritionPer100g,
+                                                carbs: Number(e.target.value)
+                                            }
+                                        })} required={true}/>
+                                    </div>
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="fat-1">Fat (per 100g)</Label>
+                                        <Input id="fat-1" name="fat" type="number" value={formData.nutritionPer100g.fat}
+                                               onChange={(e) => setFormData({
+                                                   ...formData,
+                                                   nutritionPer100g: {
+                                                       ...formData.nutritionPer100g,
+                                                       fat: Number(e.target.value)
+                                                   }
+                                               })} required={true}/>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                    <DialogFooter className="mt-4">
+                        <DialogClose asChild>
+                            <Button type="button" variant="outline">Cancel</Button>
+                        </DialogClose>
+                        <DialogClose asChild>
+                            <Button type="submit" disabled={!isFormValid}>Create Storage</Button>
+                        </DialogClose>
+                    </DialogFooter>
+                    <div className="grid gap-3 justify-center mt-2 text-center">
+                        {isNutritionPositive ? null : <ErrorInput description="Nutrition values must be positive"/>}
+                        {isNameValid ? null : <ErrorInput description="You must enter a name for the storage"/>}
+                    </div>
+                </form>
             </DialogContent>
         </Dialog>
     )

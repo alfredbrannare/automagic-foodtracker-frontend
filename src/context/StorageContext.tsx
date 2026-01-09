@@ -1,13 +1,37 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import type {StorageContextTypes, StorageProviderProps, MealResponse, UpdateStorageRequest} from "@/types/storage";
-import { getStorageItems, updateStorageItem, deleteStorageItem } from "../api/storage";
+import { createContext, useState, useEffect } from "react";
+import type {
+    StorageContextTypes,
+    StorageProviderProps,
+    UpdateStorageRequest,
+    CreateStorageRequest, StorageResponse
+} from "@/types/storage";
+import {getStorageItems, updateStorageItem, deleteStorageItem, createStorageItem} from "../api/storage";
 
 export const StorageContext = createContext<StorageContextTypes | null>(null);
 
 export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) => {
-    const [storageItems, setStorageItems] = useState<MealResponse[]>([]);
+    const [storageItems, setStorageItems] = useState<StorageResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    const createItem = async (data: CreateStorageRequest): Promise<StorageResponse> => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await createStorageItem(data);
+            setStorageItems(prev => [...prev, response]);
+            return response;
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            }
+            console.error(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const fetchItems = async () => {
         try {
@@ -63,6 +87,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
         storageItems,
         loading,
         error,
+        createItem,
         refetch: fetchItems,
         removeItem,
         updateItem
