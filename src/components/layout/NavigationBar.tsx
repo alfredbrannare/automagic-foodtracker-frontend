@@ -1,6 +1,7 @@
 import { Card } from "../ui";
 import { UserRoundPen, Goal } from 'lucide-react';
 import {UpdateUserGoalsDialog} from "@/components/feature/user/UpdateUserGoalsDialog.tsx";
+import {AddItemDialog} from "@/components/feature/common/AddItemDialog.tsx";
 
 export const NavigationBar = () => {
 
@@ -10,11 +11,7 @@ export const NavigationBar = () => {
                 bg-elevated-bg justify-evenly p-2 items-center z-50">
                     <UpdateUserGoalsDialog />
 
-                <img
-                    src="/AutomagicFoodTrackerLogo.png"
-                    alt="Register Meal Button"
-                    className="h-20 cursor-pointer transition-transform duration-300 hover:scale-110"
-                />
+                <AddItemDialog />
 
                 <UserRoundPen
                     size={42}
