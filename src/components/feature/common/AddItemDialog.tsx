@@ -18,7 +18,7 @@ export const AddItemDialog = () => {
             </DialogTrigger>
             <DialogContent className="w-80">
                 <DialogHeader>
-                    <DialogTitle>What would you like to add?</DialogTitle>
+                    <DialogTitle className="text-center">What would you like to add?</DialogTitle>
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-row justify-evenly gap-5">

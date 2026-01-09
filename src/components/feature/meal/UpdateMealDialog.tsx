@@ -17,6 +17,7 @@ import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 import {useStorageContext} from "@/hooks/useStorage.ts";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
+import {originalWeight} from "@/utils/meal-utils.ts";
 
 const NONE = "__none__";
 
@@ -33,10 +34,10 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
         name: item.name,
         weight: item.weight,
         nutrition: {
-            protein: item.nutrition.protein,
-            kcal: item.nutrition.kcal,
-            carbs: item.nutrition.carbs,
-            fat: item.nutrition.fat
+            protein: originalWeight(item.nutrition.protein, item.weight),
+            kcal: originalWeight(item.nutrition.kcal, item.weight),
+            carbs: originalWeight(item.nutrition.carbs, item.weight),
+            fat: originalWeight(item.nutrition.fat, item.weight),
         },
         consumedAt: item.consumedAt,
         storageId: item.storageId === "null" ? null : item.storageId,
@@ -49,7 +50,12 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
             setFormData((prev) => ({
                 ...prev,
                 name: item.name,
-                nutrition: {...item.nutrition},
+                nutrition: {
+                    protein: originalWeight(item.nutrition.protein, item.weight),
+                    kcal: originalWeight(item.nutrition.kcal, item.weight),
+                    carbs: originalWeight(item.nutrition.carbs, item.weight),
+                    fat: originalWeight(item.nutrition.fat, item.weight),
+                },
             }));
             return;
         }
@@ -150,7 +156,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                             <>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div className="grid gap-3">
-                                        <Label htmlFor="protein-1">Protein (g)</Label>
+                                        <Label htmlFor="protein-1">Protein (per 100g)</Label>
                                         <Input id="protein-1" disabled={isFromStorage} name="protein" type="number"
                                                value={formData.nutrition.protein} onChange={(e) => setFormData({
                                             ...formData,
@@ -161,7 +167,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                         })} required={true}/>
                                     </div>
                                     <div className="grid gap-3">
-                                        <Label htmlFor="calories-1">Calories</Label>
+                                        <Label htmlFor="calories-1">Calories (per 100g)</Label>
                                         <Input id="calories-1" disabled={isFromStorage} name="calories" type="number"
                                                value={formData.nutrition.kcal} onChange={(e) => setFormData({
                                             ...formData,
@@ -175,7 +181,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div className="grid gap-3">
-                                        <Label htmlFor="carbs-1">Carbs (g)</Label>
+                                        <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
                                         <Input id="carbs-1" disabled={isFromStorage} name="carbs" type="number"
                                                value={formData.nutrition.carbs} onChange={(e) => setFormData({
                                             ...formData,
@@ -186,7 +192,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                         })} required={true}/>
                                     </div>
                                     <div className="grid gap-3">
-                                        <Label htmlFor="fat-1">Fat (g)</Label>
+                                        <Label htmlFor="fat-1">Fat (per 100g)</Label>
                                         <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={formData.nutrition.fat}
                                                onChange={(e) => setFormData({
                                                    ...formData,
