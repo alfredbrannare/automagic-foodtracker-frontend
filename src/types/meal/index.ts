@@ -5,7 +5,7 @@ export interface CreateMealRequest {
     weight: number;
     nutrition: Nutrition;
     consumedAt?: string;
-    storageId?: string;
+    storageId?: string | null;
 }
 
 export interface UpdateMealRequest {
@@ -29,6 +29,7 @@ export interface MealContextTypes {
     mealItems: MealResponse[];
     loading: boolean;
     error: string | null;
+    createItem: (data: CreateMealRequest) => Promise<MealResponse>;
     refetch: (date?: Date) => Promise<void>;
     removeItem: (id: string) => Promise<void>;
     updateItem: (id: string, data: UpdateMealRequest) => Promise<MealResponse>;

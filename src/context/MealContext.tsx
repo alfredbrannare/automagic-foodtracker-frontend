@@ -1,6 +1,12 @@
 import {createContext, useCallback, useEffect, useState} from "react";
-import type {MealContextTypes, MealProviderProps, MealResponse, UpdateMealRequest} from "@/types/meal";
-import {deleteMealItem, getMealItems, updateMealItem} from "@/api/meals.ts";
+import type {
+    CreateMealRequest,
+    MealContextTypes,
+    MealProviderProps,
+    MealResponse,
+    UpdateMealRequest
+} from "@/types/meal";
+import {createMealItem, deleteMealItem, getMealItems, updateMealItem} from "@/api/meals.ts";
 
 export const MealContext = createContext<MealContextTypes | null>(null);
 
@@ -8,6 +14,25 @@ export const MealProvider: React.FC<MealProviderProps> = ({ children }) => {
     const [mealItems, setMealItems] = useState<MealResponse[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const createItem = async (data: CreateMealRequest): Promise<MealResponse> => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await createMealItem(data);
+            setMealItems(prev => [...prev, response]);
+            return response;
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            }
+            console.error(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    }
 
     const fetchItems = useCallback(async (date?: Date) => {
         try {
@@ -65,6 +90,7 @@ export const MealProvider: React.FC<MealProviderProps> = ({ children }) => {
         mealItems,
         loading,
         error,
+        createItem,
         refetch: fetchItems,
         removeItem,
         updateItem

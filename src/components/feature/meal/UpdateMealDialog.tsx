@@ -8,7 +8,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger, ErrorInput,
     Input,
     Label,
     Select, SelectContent, SelectItem, SelectTrigger, SelectValue
@@ -75,6 +75,10 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
         await storageRefetch();
         await nutritionRefetch();
     };
+
+    const isNutritionPositive = formData.nutrition.protein >= 0 && formData.nutrition.fat >= 0 && formData.nutrition.carbs >= 0 && formData.nutrition.kcal >= 0;
+    const isNameValid = formData.name.length > 0;
+    const isFormValid = isNutritionPositive && isNameValid;
 
     return (
         <Dialog>
@@ -201,9 +205,13 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                             <Button type="button" variant="outline">Cancel</Button>
                         </DialogClose>
                         <DialogClose asChild>
-                            <Button type="submit">Save changes</Button>
+                            <Button type="submit" disabled={!isFormValid}>Save changes</Button>
                         </DialogClose>
                     </DialogFooter>
+                    <div className="grid gap-3 justify-center mt-2 text-center">
+                        {isNutritionPositive ? null : <ErrorInput description="Nutrition values must be positive"/>}
+                        {isNameValid ? null : <ErrorInput description="You must enter a name for the meal"/>}
+                    </div>
                 </form>
             </DialogContent>
         </Dialog>
