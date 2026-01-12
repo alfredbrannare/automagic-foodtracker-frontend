@@ -9,11 +9,11 @@ import {
     DialogTitle,
     DialogTrigger
 } from "../../ui/index.ts"
-import type {MealResponse} from "@/types/storage";
+import type {StorageResponse} from "@/types/storage";
 import {Trash} from "lucide-react";
 
 interface DeleteStorageDialogProps {
-    item: MealResponse;
+    item: StorageResponse;
     onRemove: (id: string) => Promise<void>;
 }
 

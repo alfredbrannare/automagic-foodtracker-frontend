@@ -1,16 +1,16 @@
 import {Label, Progress, Separator} from "../../ui";
 import {Menu} from 'lucide-react';
 import {useState} from "react";
-import type {MealResponse} from "@/types/storage";
+import type {StorageResponse} from "@/types/storage";
 import {UpdateStorageDialog} from "./UpdateStorageDialog";
 import type {UpdateStorageRequest} from "@/types/storage";
 import {DeleteStorageDialog} from "@/components/feature/storage/DeleteStorageDialog.tsx";
 
 
 interface StorageItemProps {
-    item: MealResponse;
+    item: StorageResponse;
     onRemove: (id: string) => Promise<void>;
-    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<MealResponse>;
+    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
 }
 
 export const StorageItem = ({item, onRemove, onUpdate}: StorageItemProps) => {

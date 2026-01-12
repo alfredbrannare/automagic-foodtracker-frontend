@@ -12,14 +12,14 @@ import {
     Input,
     Label
 } from "../../ui/index.ts"
-import type {MealResponse, UpdateStorageRequest} from "@/types/storage";
+import type {StorageResponse, UpdateStorageRequest} from "@/types/storage";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import {ErrorInput} from "../../ui/index.ts";
 import {SquarePen} from "lucide-react";
 
 interface UpdateStorageDialogProps {
-    item: MealResponse;
-    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<MealResponse>;
+    item: StorageResponse;
+    onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
 }
 
 export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) => {
