@@ -1,12 +1,11 @@
 import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 import {useState} from "react";
-import {Label, Progress, Separator} from "@/components/ui";
+import {Label, Separator} from "@/components/ui";
 
 import { Menu } from 'lucide-react';
 import {UpdateMealDialog} from "@/components/feature/meal/UpdateMealDialog.tsx";
 import {DeleteMealDialog} from "@/components/feature/meal/DeleteMealDialog.tsx";
-import {UpdateStorageDialog} from "@/components/feature/storage/UpdateStorageDialog.tsx";
-import {DeleteStorageDialog} from "@/components/feature/storage/DeleteStorageDialog.tsx";
+import { formatDateForInput} from "@/utils/date-utils.ts";
 
 interface MealItemProps {
     item: MealResponse;
@@ -21,8 +20,9 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
         <div>
             <div className="grid grid-cols-[1fr_auto_auto_auto] gap-2 items-center">
                 <div className="flex flex-col mb-1">
+                    <span className="text-xs text-muted-foreground">{formatDateForInput(item.consumedAt).split("T")[1]}</span>
                     <Label className={`text-md truncate block w-15 custom-sm:w-30 ${isExpanded && "w-15"}`}>{item.name}</Label>
-                    <span>{item.weight}g</span>
+                    <span className="text-sm">{item.weight}g</span>
                 </div>
                 <div className={`grid grid-cols-2 custom-sm:grid-cols-4 gap-2 justify-self-center ${isExpanded && "hidden"}`}>  {/* Add justify-self-center here */}
                     {Object.entries(item.nutrition).map(([key, value]) => (
