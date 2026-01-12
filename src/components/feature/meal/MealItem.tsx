@@ -28,7 +28,7 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                     {Object.entries(item.nutrition).map(([key, value]) => (
                         <div key={key} className="flex flex-col items-center gap-1">
                             <Label className="text-xs text-muted-foreground">{key}</Label>
-                            <Label className="text-sm">{value}g</Label>
+                            <Label className="text-sm">{Math.round(value)}g</Label>
                         </div>
                     ))}
                 </div>

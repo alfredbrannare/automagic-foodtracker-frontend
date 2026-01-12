@@ -4,11 +4,13 @@ import {
 } from "@/components/ui";
 import {AddMealDialog} from "@/components/feature/meal/AddMealDialog.tsx";
 import {AddStorageDialog} from "@/components/feature/storage/AddStorageDialog.tsx";
+import {useState} from "react";
 
 export const AddItemDialog = () => {
+    const [open, setOpen] = useState(false);
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <img
                     src="/AutomagicFoodTrackerLogo.png"
@@ -24,8 +26,8 @@ export const AddItemDialog = () => {
                     <DialogDescription></DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-row justify-evenly gap-5">
-                    <AddMealDialog />
-                    <AddStorageDialog />
+                    <AddMealDialog onSuccess={() => setOpen(false)} />
+                    <AddStorageDialog onSuccess={() => setOpen(false)} />
                 </div>
             </DialogContent>
         </Dialog>

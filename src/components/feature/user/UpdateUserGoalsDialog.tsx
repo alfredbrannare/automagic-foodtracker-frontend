@@ -1,4 +1,4 @@
-import type {Goals, UpdateUserGoalsRequest, UserGoalsResponse} from "@/types/user";
+import type {UpdateUserGoalsRequest} from "@/types/user";
 import {useState} from "react";
 import {useUserContext} from "@/hooks/useUser.ts";
 import {

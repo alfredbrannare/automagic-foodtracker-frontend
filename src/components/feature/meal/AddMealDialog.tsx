@@ -18,12 +18,16 @@ import {useNutritionContext} from "@/hooks/useNutrition.ts";
 
 const NONE = "__none__";
 
-export const AddMealDialog = () => {
+interface AddMealDialogProps {
+    onSuccess?: () => void;
+}
+
+export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
     const {storageItems: storageItems, refetch: storageRefetch} = useStorageContext();
     const { createItem } = useMealContext();
     const { refetch: nutritionRefetch } = useNutritionContext();
 
-    const [formData, setFormData] = useState<CreateMealRequest>({
+    const defaultFormData: CreateMealRequest = {
         name: "",
         weight: 0,
         nutrition: {
@@ -34,7 +38,9 @@ export const AddMealDialog = () => {
         },
         consumedAt: new Date().toISOString(),
         storageId: null,
-    })
+    }
+
+    const [formData, setFormData] = useState<CreateMealRequest>(defaultFormData)
 
     const isFromStorage = formData.storageId !== null;
 
@@ -73,6 +79,7 @@ export const AddMealDialog = () => {
         await createItem(formData);
         await storageRefetch();
         await nutritionRefetch();
+        onSuccess?.();
     }
 
     const isNutritionPositive = formData.nutrition.protein >= 0 && formData.nutrition.fat >= 0 && formData.nutrition.carbs >= 0 && formData.nutrition.kcal >= 0;
@@ -80,7 +87,7 @@ export const AddMealDialog = () => {
     const isFormValid = isNutritionPositive && isNameValid;
 
     return (
-        <Dialog>
+        <Dialog onOpenChange={(open) => open && setFormData(defaultFormData)}>
             <DialogTrigger className="flex flex-col items-center">
                 <Utensils className="text-amft-white h-20 cursor-pointer transition-transform duration-300 hover:scale-110" size={42}/>
                 <Label className="text-amft-white">Meal</Label>

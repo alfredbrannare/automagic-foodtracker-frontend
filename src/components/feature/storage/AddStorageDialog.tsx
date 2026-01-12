@@ -14,10 +14,14 @@ import {useState} from "react";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {CreateStorageRequest} from "@/types/storage";
 
-export const AddStorageDialog = () => {
+interface AddStorageDialogProps {
+    onSuccess?: () => void;
+}
+
+export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
     const {createItem} = useStorageContext();
 
-    const [formData, setFormData] = useState<CreateStorageRequest>({
+    const defaultFormData: CreateStorageRequest = {
         name: "",
         nutritionPer100g: {
             protein: 0,
@@ -29,11 +33,14 @@ export const AddStorageDialog = () => {
         weightPerMeal: 0,
         lowStockThreshold: 0,
         createdAt: new Date().toISOString(),
-    });
+    }
+
+    const [formData, setFormData] = useState<CreateStorageRequest>(defaultFormData);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await createItem(formData);
+        onSuccess?.();
     }
 
     const isNutritionPositive = formData.nutritionPer100g.protein >= 0 && formData.nutritionPer100g.fat >= 0 && formData.nutritionPer100g.carbs >= 0 && formData.nutritionPer100g.kcal >= 0;
@@ -45,7 +52,7 @@ export const AddStorageDialog = () => {
     const isFormValid = isNutritionPositive && isNameValid && isThresholdLessThanTotalWeight && isThresholdPositive && isWeightPerMealLessThanTotalWeight && isWeightPerMealPositive;
 
     return (
-        <Dialog>
+        <Dialog onOpenChange={(open) => open && setFormData(defaultFormData)}>
             <DialogTrigger className="flex flex-col items-center">
                 <Warehouse className="text-amft-white h-20 cursor-pointer transition-transform duration-300 hover:scale-110" size={42}/>
                 <Label className="text-amft-white">Storage</Label>
