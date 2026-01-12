@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --breakpoint-custom-sm: 390px;
+
     --color-elevated-bg: var(--elevated-bg);
     --color-amft-white: var(--text-white);
     --color-lines: var(--lines);

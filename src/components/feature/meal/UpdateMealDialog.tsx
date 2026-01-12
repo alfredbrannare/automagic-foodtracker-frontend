@@ -18,6 +18,7 @@ import type {MealResponse, UpdateMealRequest} from "@/types/meal";
 import {useStorageContext} from "@/hooks/useStorage.ts";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
 import {originalWeight} from "@/utils/meal-utils.ts";
+import {SquarePen} from "lucide-react";
 
 const NONE = "__none__";
 
@@ -89,7 +90,10 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Update</Button>
+                <Button variant="outline">
+                    <span className="hidden custom-sm:inline">Update</span>
+                    <SquarePen className="text-amft-white custom-sm:hidden" />
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>

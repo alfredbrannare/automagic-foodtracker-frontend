@@ -15,6 +15,7 @@ import {
 import type {MealResponse, UpdateStorageRequest} from "@/types/storage";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import {ErrorInput} from "../../ui/index.ts";
+import {SquarePen} from "lucide-react";
 
 interface UpdateStorageDialogProps {
     item: MealResponse;
@@ -52,7 +53,10 @@ export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) 
     return (
         <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Update</Button>
+                    <Button variant="outline">
+                        <span className="hidden custom-sm:inline">Update</span>
+                        <SquarePen className="text-amft-white custom-sm:hidden" />
+                    </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <form onSubmit={handleSubmit}>

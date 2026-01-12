@@ -10,6 +10,7 @@ import {
     DialogTrigger
 } from "../../ui/index.ts"
 import type {MealResponse} from "@/types/storage";
+import {Trash} from "lucide-react";
 
 interface DeleteStorageDialogProps {
     item: MealResponse;
@@ -26,7 +27,10 @@ export const DeleteStorageDialog = ({item, onRemove}: DeleteStorageDialogProps) 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Delete</Button>
+                <Button variant="outline">
+                    <span className="hidden custom-sm:inline">Delete</span>
+                    <Trash className="text-amft-white custom-sm:hidden"/>
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>
