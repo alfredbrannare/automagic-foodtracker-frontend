@@ -23,7 +23,7 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                     <span className="text-sm">{item.weight}g</span>
                 </div>
                 {!isExpanded &&
-                    <div className="flex-grow grid grid-cols-2 sm:grid-cols-4 items-center mt-2 ml-8">
+                    <div className="flex-grow grid grid-cols-2 sm:grid-cols-4 items-center mt-2 ml-4">
                         {Object.entries(item.nutrition).map(([key, value]) => (
                             <div key={key} className="flex gap-1 mr-3 text-center items-center">
                                 <Progress

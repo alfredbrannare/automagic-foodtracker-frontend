@@ -1,13 +1,24 @@
-import {Card, CardContent, CardHeader, CardTitle, ErrorContainer, LoadingContainer, Separator} from "@/components/ui";
+import {
+    Card,
+    CardContent,
+    CardHeader,
+    CardTitle,
+    Collapsible, CollapsibleContent, CollapsibleTrigger,
+    ErrorContainer,
+    LoadingContainer,
+    Separator
+} from "@/components/ui";
 import {useMealContext} from "@/hooks/useMeal.ts";
 import {MealItem} from "@/components/feature/meal/MealItem.tsx";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
-import {useEffect} from "react";
-import {SkipBack, SkipForward} from 'lucide-react';
+import {useEffect, useState} from "react";
+import {ChevronDown, SkipBack, SkipForward} from 'lucide-react';
 
 export const MealSection = () => {
     const {mealItems, loading, error, removeItem, updateItem, refetch} = useMealContext();
     const {selectedDate, changeDate} = useNutritionContext();
+    const [isOpen, setIsOpen] = useState(false);
+    const hasMore = mealItems.length > 3;
 
     useEffect(() => {
         void refetch(selectedDate);
@@ -47,8 +58,8 @@ export const MealSection = () => {
                         You've not registered any meals {selectedDate.toISOString().split('T')[0]}
                     </span>
                 ) : (
-                    <>
-                        {mealItems.map((item, index) => (
+                    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+                        {mealItems.slice(0, 3).map((item, index) => (
                             <MealItem
                                 key={index}
                                 item={item}
@@ -56,7 +67,24 @@ export const MealSection = () => {
                                 onUpdate={updateItem}
                             />
                         ))}
-                    </>
+                        {hasMore && (
+                            <CollapsibleContent>
+                                {mealItems.slice(3).map((item, index) => (
+                                <MealItem
+                                    key={index}
+                                    item={item}
+                                    onRemove={removeItem}
+                                    onUpdate={updateItem}
+                                />
+                            ))}
+                            </CollapsibleContent>
+                        )}
+                        {hasMore && (
+                            <CollapsibleTrigger className="w-full flex justify-center text-center items-center">
+                            <ChevronDown className="text-amft-white cursor-pointer transition-transform duration-300 hover:scale-110" size={24}/>
+                            </CollapsibleTrigger>
+                        )}
+                    </Collapsible>
                 )
                 }
             </CardContent>

@@ -1,9 +1,13 @@
-import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer } from "../../ui";
+import {Card, CardContent, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer, Collapsible, CollapsibleContent, CollapsibleTrigger } from "../../ui";
 import {StorageItem} from "./StorageItem";
 import { useStorageContext } from "../../../hooks/useStorage.ts";
+import {useState} from "react";
+import { ChevronDown } from "lucide-react";
 
 export const StorageSection = () => {
     const { storageItems, loading, error, removeItem, updateItem } = useStorageContext();
+    const [isOpen, setIsOpen] = useState(false);
+    const hasMore = storageItems.length > 3;
 
     return (
         <Card className="bg-elevated-bg max-w-5xl w-full">
@@ -23,8 +27,8 @@ export const StorageSection = () => {
                         You've not registered any storage items
                     </span>
                     ) : (
-                    <>
-                        {storageItems.map(item => (
+                    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+                        {storageItems.slice(0, 3).map(item => (
                             <StorageItem
                                 key={item.id}
                                 item={item}
@@ -32,7 +36,24 @@ export const StorageSection = () => {
                                 onUpdate={updateItem}
                             />
                         ))}
-                    </>
+                        {hasMore && (
+                            <CollapsibleContent>
+                                {storageItems.slice(3).map(item => (
+                                    <StorageItem
+                                        key={item.id}
+                                        item={item}
+                                        onRemove={removeItem}
+                                        onUpdate={updateItem}
+                                    />
+                                ))}
+                            </CollapsibleContent>
+                        )}
+                        {hasMore && (
+                            <CollapsibleTrigger className="w-full flex justify-center text-center items-center">
+                                <ChevronDown className="text-amft-white cursor-pointer transition-transform duration-300 hover:scale-110" size={24}/>
+                            </CollapsibleTrigger>
+                        )}
+                    </Collapsible>
                 )}
             </CardContent>
         </Card>
