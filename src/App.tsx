@@ -1,17 +1,17 @@
 import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './hooks/useAuth';
-import { Dashboard } from './pages/Dashboard';
+import {useAuthContext} from './hooks/useAuth';
+import { Dashboard, Auth } from '@/pages';
 
 
 const AppContent: React.FC = () => {
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, isLoading } = useAuthContext();
 
     if (isLoading) {
         return <div>Checking credentials...</div>;
     }
 
     if (!isAuthenticated) {
-        return <div>Please log in (LoginForm will go here)</div>;
+        return <Auth />;
     }
 
     return (

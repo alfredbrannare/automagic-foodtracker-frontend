@@ -18,7 +18,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
-    const login = () => {};
+    const login = () => {
+        console.log("Login submitted");
+    };
     const logout = () => {
         setIsAuthenticated(false);
         window.location.href = "/";
@@ -30,7 +32,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 await apiClient.get("/storage");
                 setIsAuthenticated(true);
             } catch (error) {
-                setIsAuthenticated(true);
+                setIsAuthenticated(false);
             } finally {
                 setIsLoading(false);
             }
