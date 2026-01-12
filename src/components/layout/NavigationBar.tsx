@@ -2,6 +2,7 @@ import { Card } from "../ui";
 import { UserRoundPen, Goal } from 'lucide-react';
 import {UpdateUserGoalsDialog} from "@/components/feature/user/UpdateUserGoalsDialog.tsx";
 import {AddItemDialog} from "@/components/feature/common/AddItemDialog.tsx";
+import {DeleteUserDialog} from "@/components/feature/user/DeleteUserDialog.tsx";
 
 export const NavigationBar = () => {
 
@@ -13,10 +14,7 @@ export const NavigationBar = () => {
 
                 <AddItemDialog />
 
-                <UserRoundPen
-                    size={42}
-                    className="text-amft-white h-20 cursor-pointer transition-transform duration-300 hover:scale-110"
-                />
+                <DeleteUserDialog />
             </Card>
         </nav>
     )

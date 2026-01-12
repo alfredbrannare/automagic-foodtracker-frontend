@@ -31,18 +31,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
     const {storageItems, refetch: storageRefetch} = useStorageContext();
     const {refetch: nutritionRefetch} = useNutritionContext();
 
-    const [formData, setFormData] = useState<UpdateMealRequest>({
-        name: item.name,
-        weight: item.weight,
-        nutrition: {
-            protein: originalWeight(item.nutrition.protein, item.weight),
-            kcal: originalWeight(item.nutrition.kcal, item.weight),
-            carbs: originalWeight(item.nutrition.carbs, item.weight),
-            fat: originalWeight(item.nutrition.fat, item.weight),
-        },
-        consumedAt: item.consumedAt,
-        storageId: item.storageId === "null" ? null : item.storageId,
-    });
+    const [formData, setFormData] = useState<UpdateMealRequest>(item);
 
     const isFromStorage = formData.storageId !== null;
 
@@ -88,7 +77,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
     const isFormValid = isNutritionPositive && isNameValid;
 
     return (
-        <Dialog>
+        <Dialog onOpenChange={(open) => open && setFormData(item)}>
             <DialogTrigger asChild>
                 <Button variant="outline">
                     <span className="hidden custom-sm:inline">Update</span>
@@ -140,7 +129,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-1">Total Weight (g)</Label>
-                                <Input id="weight-1" name="weight" type="number" value={formData.weight}
+                                <Input id="weight-1" name="weight" type="number" value={Math.round(formData.weight)}
                                        onChange={(e) => setFormData({...formData, weight: Number(e.target.value)})}
                                        required={true}/>
                             </div>
@@ -162,7 +151,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="protein-1">Protein (per 100g)</Label>
                                         <Input id="protein-1" disabled={isFromStorage} name="protein" type="number"
-                                               value={formData.nutrition.protein} onChange={(e) => setFormData({
+                                               value={Math.round(formData.nutrition.protein)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -173,7 +162,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="calories-1">Calories (per 100g)</Label>
                                         <Input id="calories-1" disabled={isFromStorage} name="calories" type="number"
-                                               value={formData.nutrition.kcal} onChange={(e) => setFormData({
+                                               value={Math.round(formData.nutrition.kcal)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -187,7 +176,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
                                         <Input id="carbs-1" disabled={isFromStorage} name="carbs" type="number"
-                                               value={formData.nutrition.carbs} onChange={(e) => setFormData({
+                                               value={Math.round(formData.nutrition.carbs)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -197,7 +186,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="fat-1">Fat (per 100g)</Label>
-                                        <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={formData.nutrition.fat}
+                                        <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={Math.round(formData.nutrition.fat)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutrition: {
