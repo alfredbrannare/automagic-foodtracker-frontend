@@ -1,5 +1,4 @@
 import { Card } from "../ui";
-import { UserRoundPen, Goal } from 'lucide-react';
 import {UpdateUserGoalsDialog} from "@/components/feature/user/UpdateUserGoalsDialog.tsx";
 import {AddItemDialog} from "@/components/feature/common/AddItemDialog.tsx";
 import {DeleteUserDialog} from "@/components/feature/user/DeleteUserDialog.tsx";

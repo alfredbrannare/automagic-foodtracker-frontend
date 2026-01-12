@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 await apiClient.get("/storage");
                 setIsAuthenticated(true);
             } catch (error) {
-                setIsAuthenticated(true);
+                setIsAuthenticated(false);
             } finally {
                 setIsLoading(false);
             }

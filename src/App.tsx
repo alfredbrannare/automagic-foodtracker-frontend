@@ -1,6 +1,6 @@
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './hooks/useAuth';
-import { Dashboard } from './pages/Dashboard';
+import { Dashboard, Auth } from '@/pages';
 
 
 const AppContent: React.FC = () => {
@@ -11,7 +11,7 @@ const AppContent: React.FC = () => {
     }
 
     if (!isAuthenticated) {
-        return <div>Please log in (LoginForm will go here)</div>;
+        return <Auth />;
     }
 
     return (
