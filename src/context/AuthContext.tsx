@@ -83,6 +83,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             }
             console.error(error);
             throw error;
+        } finally {
+            setIsAuthenticated(false)
+            setIsLoading(false);
         }
     }
 

@@ -25,7 +25,7 @@ export const Auth = () => {
                     </p>
                 </div>
                 <Separator className="mb-0"/>
-                <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full ">
+                <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
                     <TabsList className="w-full bg-elevated-bg rounded-b-lg rounded-t-xl pt-0">
                         <TabsTrigger value="login">Login</TabsTrigger>
                         <TabsTrigger value="register">Register</TabsTrigger>
