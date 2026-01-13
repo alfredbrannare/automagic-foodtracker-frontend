@@ -1,25 +1,30 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {createContext, useState, useEffect} from "react";
 import apiClient from "../api/apiClient";
-
-interface AuthContextType {
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    login: () => void;
-    logout: () => void;
-}
-
-interface AuthProviderProps {
-    children: ReactNode;
-}
+import type {AuthContextType, AuthProviderProps, LoginRequest} from "@/types/auth";
+import {loginUser} from "@/api/auth.ts";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
-    const login = () => {
-        console.log("Login submitted");
+    const login = async (data: LoginRequest) => {
+        try {
+            setIsLoading(true);
+            setError(null);
+
+            await loginUser(data);
+            setIsAuthenticated(true);
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Failed to login";
+            setError(message);
+            setIsAuthenticated(false);
+        } finally {
+            setIsLoading(false);
+        }
+
     };
     const logout = () => {
         setIsAuthenticated(false);
@@ -43,7 +48,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const contextValue: AuthContextType = {
         isAuthenticated,
         isLoading,
-        login,
+        error,
+        login: login,
         logout
     };
 

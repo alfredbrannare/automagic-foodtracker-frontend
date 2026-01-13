@@ -2,29 +2,35 @@ import {Button, CardContent, CardHeader, CardTitle, Input, Label} from "@/compon
 import {useState} from "react";
 import {Eye, EyeOff} from "lucide-react";
 import {useAuthContext} from "@/hooks/useAuth.ts";
+import type {LoginRequest} from "@/types/auth";
 
 export const LoginForm = () => {
-    const { login } = useAuthContext();
+    const {login} = useAuthContext();
     const [showPassword, setShowPassword] = useState(false);
+
+    const [formData, setFormData] = useState<LoginRequest>({
+        username: "",
+        password: ""
+    });
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await login();
+        await login(formData);
     }
 
     return (
-        <div className="text-center">
-            <CardContent >
+        <div className="text-center max-w-md mx-auto">
+            <CardContent>
                 <form className="grid gap-6" onSubmit={handleSubmit}>
                     <div className="grid gap-3">
                         <Label htmlFor="username">Username</Label>
-                        <Input id="username" type="text" required={true}/>
+                        <Input id="username" type="text" required={true} value={formData.username} onChange={(e) => setFormData({...formData, username: e.target.value})}/>
                     </div>
                     <div className="grid gap-3">
                         <Label htmlFor="password">Password</Label>
                         <div className="relative">
                             <Input id="password" type={showPassword ? "text" : "password"} className="pr-10"
-                                   required={true}/>
+                                   required={true} value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}/>
                             <button
                                 type="button"
                                 onClick={() => setShowPassword((prev) => !prev)}
