@@ -1,13 +1,12 @@
 import {
     Card,
-    CardDescription,
-    CardHeader,
-    CardTitle, Separator,
+    Separator,
     Tabs, TabsContent,
     TabsList,
     TabsTrigger
 } from "@/components/ui";
 import {LoginForm} from "@/components/feature/auth/LoginForm.tsx";
+import {RegisterForm} from "@/components/feature/auth/RegisterForm.tsx";
 
 export const Auth = () => {
     return (
@@ -32,10 +31,7 @@ export const Auth = () => {
                         <LoginForm />
                     </TabsContent>
                     <TabsContent value="register">
-                        <CardHeader>
-                            <CardTitle>Register</CardTitle>
-                            <CardDescription></CardDescription>
-                        </CardHeader>
+                            <RegisterForm />
                     </TabsContent>
                 </Tabs>
             </Card>

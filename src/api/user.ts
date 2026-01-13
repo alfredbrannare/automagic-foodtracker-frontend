@@ -1,4 +1,4 @@
-import type {Goals, UpdateUserGoalsRequest, UserGoalsResponse} from "@/types/user";
+import type {UpdateUserGoalsRequest, UserGoalsResponse} from "@/types/user";
 import apiClient from "@/api/apiClient.ts";
 
 export const getUserGoals = async (): Promise<UserGoalsResponse> => {
@@ -12,5 +12,5 @@ export const updateUserGoals = async (data: UpdateUserGoalsRequest): Promise<Use
 }
 
 export const deleteUser = async (): Promise<void> => {
-    await apiClient.delete('/auth');
+    await apiClient.delete('/me');
 }
