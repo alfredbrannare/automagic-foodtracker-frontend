@@ -55,9 +55,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         }
     }
 
-    const logout = () => {
-        setIsAuthenticated(false);
-        window.location.href = "/";
+    const logout = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+
+            await apiClient.post("/auth/logout");
+            setIsAuthenticated(false);
+            window.location.href = "/";
+        } catch (error) {
+            setError("Failed to logout");
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {

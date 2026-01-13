@@ -10,3 +10,7 @@ export const registerUser = async (data: RegisterRequest) => {
     const response = await apiClient.post('/auth/register', data);
     return response.data;
 }
+
+export const logoutUser = async () => {
+    await apiClient.post('/auth/logout');
+}

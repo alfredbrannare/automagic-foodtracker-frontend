@@ -15,9 +15,6 @@ export const RegisterForm = () => {
     });
 
     const [isChecked, setIsChecked] = useState(false);
-    const isPasswordValid = formData.password.length >= 8 && formData.password.length <= 20;
-    const isEmailValid = formData.email.includes("@");
-    const isFormValid = isPasswordValid && isEmailValid && isChecked;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

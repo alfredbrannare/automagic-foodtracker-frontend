@@ -7,8 +7,11 @@ import {
 } from "@/components/ui";
 import {LoginForm} from "@/components/feature/auth/LoginForm.tsx";
 import {RegisterForm} from "@/components/feature/auth/RegisterForm.tsx";
+import {useState} from "react";
 
 export const Auth = () => {
+    const [activeTab, setActiveTab] = useState<string>("login")
+
     return (
         <main className="min-h-screen m-2 pb-30 flex flex-col items-center gap-4 justify-center max-w-full">
             <Card className="bg-elevated-bg max-w-xl w-full gap-0">
@@ -22,7 +25,7 @@ export const Auth = () => {
                     </p>
                 </div>
                 <Separator className="mb-0"/>
-                <Tabs defaultValue="login" className="w-full ">
+                <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full ">
                     <TabsList className="w-full bg-elevated-bg rounded-b-lg rounded-t-xl pt-0">
                         <TabsTrigger value="login">Login</TabsTrigger>
                         <TabsTrigger value="register">Register</TabsTrigger>

@@ -9,26 +9,27 @@ import {
     DialogTitle,
     DialogTrigger, Label
 } from "@/components/ui";
-import {UserRoundPen} from 'lucide-react';
 
-export const DeleteUserDialog = () => {
+interface DeleteUserDialogProps {
+    onSuccess?: () => void;
+}
+
+export const DeleteUserDialog = ( { onSuccess }: DeleteUserDialogProps) => {
     const {removeUser, loading, error} = useUserContext();
     const [isChecked, setIsChecked] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await removeUser();
+        onSuccess?.();
     }
 
     return (
         <Dialog onOpenChange={(open) => open && setIsChecked(false)}>
             <DialogTrigger asChild>
-                <button>
-                    <UserRoundPen
-                        size={42}
-                        className="text-amft-white h-20 cursor-pointer transition-transform duration-300 hover:scale-110"
-                    />
-                </button>
+                <Button>
+                    Delete Account
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <form onSubmit={handleSubmit}>
