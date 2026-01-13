@@ -12,6 +12,7 @@ export interface AuthContextType {
     isLoading: boolean;
     login: (data: LoginRequest) => Promise<void>;
     logout: () => void;
+    error: string | null;
 }
 
 export interface AuthProviderProps {

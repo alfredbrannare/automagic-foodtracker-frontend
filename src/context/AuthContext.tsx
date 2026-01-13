@@ -17,9 +17,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
             await loginUser(data);
             setIsAuthenticated(true);
-        } catch (error) {
-            const message = error instanceof Error ? error.message : "Failed to login";
-            setError(message);
+        } catch (err: any) {
+            if (err.response && err.response.data && err.response.data.error) {
+                setError(err.response.data.error);
+            } else if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("An unexpected error occurred")
+            }
             setIsAuthenticated(false);
         } finally {
             setIsLoading(false);

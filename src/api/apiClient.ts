@@ -28,6 +28,10 @@ apiClient.interceptors.response.use(
         const originalRequest = error.config;
         const status = error.response?.status;
 
+        if (originalRequest.url.includes('/login') || originalRequest.url.includes('/register')) {
+            return Promise.reject(error);
+        }
+
         if (status === 401 && !originalRequest._retry) {
             if (isRefreshing) {
                 return new Promise((resolve, reject) => {

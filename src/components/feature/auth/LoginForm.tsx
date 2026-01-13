@@ -1,11 +1,11 @@
-import {Button, CardContent, CardHeader, CardTitle, Input, Label} from "@/components/ui";
+import {Button, CardContent, CardHeader, CardTitle, ErrorInput, Input, Label} from "@/components/ui";
 import {useState} from "react";
 import {Eye, EyeOff} from "lucide-react";
 import {useAuthContext} from "@/hooks/useAuth.ts";
 import type {LoginRequest} from "@/types/auth";
 
 export const LoginForm = () => {
-    const {login} = useAuthContext();
+    const {login, error} = useAuthContext();
     const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState<LoginRequest>({
@@ -40,6 +40,7 @@ export const LoginForm = () => {
                                 {showPassword ? <Eye size={24}/> : <EyeOff size={20}/>}
                             </button>
                         </div>
+                        {error && <ErrorInput className="text-red-500" description={error}>{error}</ErrorInput>}
                     </div>
                     <Button type="submit">Login</Button>
                 </form>
