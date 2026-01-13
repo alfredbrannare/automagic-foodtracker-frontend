@@ -1,7 +1,7 @@
 import {createContext, useState, useEffect} from "react";
 import apiClient from "../api/apiClient";
 import type {AuthContextType, AuthProviderProps, LoginRequest, RegisterRequest} from "@/types/auth";
-import {loginUser} from "@/api/auth.ts";
+import {deleteUser, loginUser} from "@/api/auth.ts";
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -71,6 +71,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         }
     }
 
+    const removeUser = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+
+            await deleteUser();
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message);
+            }
+            console.error(error);
+            throw error;
+        }
+    }
+
     useEffect(() => {
         const checkAuth = async () => {
             try {
@@ -91,7 +106,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         error,
         login: login,
         register: register,
-        logout
+        logout,
+        removeUser: removeUser
     };
 
     return (

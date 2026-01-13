@@ -14,3 +14,7 @@ export const registerUser = async (data: RegisterRequest) => {
 export const logoutUser = async () => {
     await apiClient.post('/auth/logout');
 }
+
+export const deleteUser = async (): Promise<void> => {
+    await apiClient.delete('/me');
+}

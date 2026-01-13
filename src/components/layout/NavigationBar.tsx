@@ -1,7 +1,6 @@
 import { Card } from "../ui";
 import {UpdateUserGoalsDialog} from "@/components/feature/user/UpdateUserGoalsDialog.tsx";
 import {AddItemDialog} from "@/components/feature/common/AddItemDialog.tsx";
-import {DeleteUserDialog} from "@/components/feature/user/DeleteUserDialog.tsx";
 import {UserOptionsDialog} from "@/components/feature/user/UserOptionsDialog.tsx";
 
 export const NavigationBar = () => {

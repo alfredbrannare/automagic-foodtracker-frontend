@@ -10,7 +10,3 @@ export const updateUserGoals = async (data: UpdateUserGoalsRequest): Promise<Use
     const response = await apiClient.put('/me/goals', data);
     return response.data;
 }
-
-export const deleteUser = async (): Promise<void> => {
-    await apiClient.delete('/me');
-}

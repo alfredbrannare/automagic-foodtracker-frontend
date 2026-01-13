@@ -9,13 +9,14 @@ import {
     DialogTitle,
     DialogTrigger, Label
 } from "@/components/ui";
+import {useAuthContext} from "@/hooks/useAuth.ts";
 
 interface DeleteUserDialogProps {
     onSuccess?: () => void;
 }
 
 export const DeleteUserDialog = ( { onSuccess }: DeleteUserDialogProps) => {
-    const {removeUser, loading, error} = useUserContext();
+    const {removeUser, isLoading, error} = useAuthContext();
     const [isChecked, setIsChecked] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -40,7 +41,7 @@ export const DeleteUserDialog = ( { onSuccess }: DeleteUserDialogProps) => {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4">
-                        {loading ? (
+                        {isLoading ? (
                             <span>Loading...</span>
                         ) : (
                             <div className="flex flex-row items-center gap-4">

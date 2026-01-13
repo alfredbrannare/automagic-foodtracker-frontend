@@ -1,6 +1,6 @@
 import {createContext, useEffect, useState} from "react";
 import type {Goals, UpdateUserGoalsRequest, UserContextTypes, UserGoalsResponse, UserProviderProps} from "@/types/user";
-import {deleteUser, getUserGoals, updateUserGoals} from "@/api/user.ts";
+import {getUserGoals, updateUserGoals} from "@/api/user.ts";
 
 export const UserContext = createContext<UserContextTypes | null>(null);
 
@@ -45,21 +45,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
         }
     }
 
-    const removeUser = async () => {
-        try {
-            setLoading(true);
-            setError(null);
-
-            await deleteUser();
-        } catch (error) {
-            if (error instanceof Error) {
-                setError(error.message);
-            }
-            console.error(error);
-            throw error;
-        }
-    }
-
     useEffect(() => {
         fetchItems();
     }, []);
@@ -70,7 +55,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({children}) => {
         error,
         refetch: fetchItems,
         updateGoals: updateGoals,
-        removeUser: removeUser
     }
 
     return (

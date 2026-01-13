@@ -25,7 +25,6 @@ export interface UserContextTypes {
     error: string | null;
     refetch: () => Promise<void>;
     updateGoals: (data: UpdateUserGoalsRequest) => Promise<UserGoalsResponse>;
-    removeUser: () => Promise<void>;
 }
 
 export interface UserProviderProps {
