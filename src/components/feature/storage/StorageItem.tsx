@@ -11,9 +11,10 @@ interface StorageItemProps {
     item: StorageResponse;
     onRemove: (id: string) => Promise<void>;
     onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+    onRefetch: () => Promise<void>;
 }
 
-export const StorageItem = ({item, onRemove, onUpdate}: StorageItemProps) => {
+export const StorageItem = ({item, onRemove, onUpdate, onRefetch}: StorageItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const remainingWeight: number = item.totalWeight - item.consumedWeight;
@@ -46,7 +47,7 @@ export const StorageItem = ({item, onRemove, onUpdate}: StorageItemProps) => {
                 />
                 <div
                     className={`flex items-center gap-2 transition-all duration-300 ${isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0 overflow-hidden'}`}>
-                    <UpdateStorageDialog item={item} onUpdate={onUpdate}/>
+                    <UpdateStorageDialog item={item} onUpdate={onUpdate} onRefetch={onRefetch}/>
                     <DeleteStorageDialog item={item} onRemove={onRemove}/>
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>

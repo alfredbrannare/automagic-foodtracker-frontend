@@ -65,6 +65,7 @@ export const MealSection = () => {
                                 item={item}
                                 onRemove={removeItem}
                                 onUpdate={updateItem}
+                                onRefetch={refetch}
                             />
                         ))}
                         {hasMore && (
@@ -75,6 +76,7 @@ export const MealSection = () => {
                                     item={item}
                                     onRemove={removeItem}
                                     onUpdate={updateItem}
+                                    onRefetch={refetch}
                                 />
                             ))}
                             </CollapsibleContent>

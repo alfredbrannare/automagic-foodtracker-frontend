@@ -15,13 +15,15 @@ import {Trash} from "lucide-react";
 interface DeleteStorageDialogProps {
     item: StorageResponse;
     onRemove: (id: string) => Promise<void>;
+    onRefetch: () => Promise<void>;
 }
 
-export const DeleteStorageDialog = ({item, onRemove}: DeleteStorageDialogProps) => {
+export const DeleteStorageDialog = ({item, onRemove, onRefetch}: DeleteStorageDialogProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onRemove(item.id);
+        await onRefetch();
     };
 
     return (

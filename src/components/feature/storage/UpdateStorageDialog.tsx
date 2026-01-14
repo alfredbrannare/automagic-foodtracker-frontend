@@ -20,9 +20,10 @@ import {SquarePen} from "lucide-react";
 interface UpdateStorageDialogProps {
     item: StorageResponse;
     onUpdate: (id: string, data: UpdateStorageRequest) => Promise<StorageResponse>;
+    onRefetch: () => Promise<void>;
 }
 
-export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) => {
+export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDialogProps) => {
     const [formData, setFormData] = useState<UpdateStorageRequest>(item);
 
     const isThresholdValid =
@@ -35,6 +36,7 @@ export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onUpdate(item.id, formData);
+        await onRefetch();
     };
 
     return (

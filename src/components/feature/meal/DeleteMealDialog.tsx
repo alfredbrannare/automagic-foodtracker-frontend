@@ -15,13 +15,15 @@ import {Trash} from "lucide-react";
 interface DeleteMealDialogProps {
     item: MealResponse;
     onRemove: (id: string) => Promise<void>;
+    onRefetch: () => Promise<void>;
 }
 
-export const DeleteMealDialog = ({item, onRemove}: DeleteMealDialogProps) => {
+export const DeleteMealDialog = ({item, onRemove, onRefetch}: DeleteMealDialogProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onRemove(item.id);
+        await onRefetch();
     };
 
     return (

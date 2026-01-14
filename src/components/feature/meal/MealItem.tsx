@@ -11,9 +11,10 @@ interface MealItemProps {
     item: MealResponse;
     onRemove: (id: string) => Promise<void>;
     onUpdate: (id: string, data: UpdateMealRequest) => Promise<MealResponse>;
+    onRefetch: () => Promise<void>;
 }
 
-export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
+export const MealItem = ({item, onRemove, onUpdate, onRefetch}: MealItemProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -34,8 +35,8 @@ export const MealItem = ({item, onRemove, onUpdate}: MealItemProps) => {
                 </div>
 
                 <div className={`flex items-center gap-2 transition-all duration-300 ${isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0 overflow-hidden'}`}>
-                    <UpdateMealDialog item={item} onUpdate={onUpdate}/>
-                    <DeleteMealDialog item={item} onRemove={onRemove}/>
+                    <UpdateMealDialog item={item} onUpdate={onUpdate} onRefetch={onRefetch}/>
+                    <DeleteMealDialog item={item} onRemove={onRemove} onRefetch={onRefetch}/>
                 </div>
 
                 <button onClick={() => setIsExpanded(!isExpanded)}>

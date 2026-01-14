@@ -25,9 +25,10 @@ const NONE = "__none__";
 interface UpdateMealDialogProps {
     item: MealResponse;
     onUpdate: (id: string, data: UpdateMealRequest) => Promise<MealResponse>;
+    onRefetch: () => Promise<void>;
 }
 
-export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
+export const UpdateMealDialog = ({item, onUpdate, onRefetch}: UpdateMealDialogProps) => {
     const {storageItems, refetch: storageRefetch} = useStorageContext();
     const {refetch: nutritionRefetch} = useNutritionContext();
 
@@ -70,6 +71,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
         await onUpdate(item.id, formData);
         await storageRefetch();
         await nutritionRefetch();
+        await onRefetch();
     };
 
     const isNutritionPositive = formData.nutrition.protein >= 0 && formData.nutrition.fat >= 0 && formData.nutrition.carbs >= 0 && formData.nutrition.kcal >= 0;

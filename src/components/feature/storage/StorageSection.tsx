@@ -5,7 +5,7 @@ import {useState} from "react";
 import { ChevronDown } from "lucide-react";
 
 export const StorageSection = () => {
-    const { storageItems, loading, error, removeItem, updateItem } = useStorageContext();
+    const { storageItems, loading, error, removeItem, updateItem, refetch } = useStorageContext();
     const [isOpen, setIsOpen] = useState(false);
     const hasMore = storageItems.length > 3;
 
@@ -34,6 +34,7 @@ export const StorageSection = () => {
                                 item={item}
                                 onRemove={removeItem}
                                 onUpdate={updateItem}
+                                onRefetch={refetch}
                             />
                         ))}
                         {hasMore && (
@@ -44,6 +45,7 @@ export const StorageSection = () => {
                                         item={item}
                                         onRemove={removeItem}
                                         onUpdate={updateItem}
+                                        onRefetch={refetch}
                                     />
                                 ))}
                             </CollapsibleContent>
