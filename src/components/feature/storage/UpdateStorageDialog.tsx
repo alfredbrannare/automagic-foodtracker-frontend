@@ -29,7 +29,8 @@ export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) 
         formData.lowStockThreshold <= formData.totalWeight;
     const isMealWeightValid =
         formData.weightPerMeal <= formData.totalWeight;
-    const isFormValid = isThresholdValid && isMealWeightValid;
+    const isTotalWeightValid = formData.totalWeight >= 0;
+    const isFormValid = isThresholdValid && isMealWeightValid && isTotalWeightValid;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -163,6 +164,7 @@ export const UpdateStorageDialog = ({item, onUpdate}: UpdateStorageDialogProps) 
                             <ErrorInput description="Low stock threshold must be lower than total weight."/>}
                         {isMealWeightValid ? null :
                             <ErrorInput description="Weight per meal must be lower than total weight."/>}
+                        {isTotalWeightValid ? null : <ErrorInput description="Weight must be equal or greater than 0g."/>}
                     </div>
                 </form>
             </DialogContent>

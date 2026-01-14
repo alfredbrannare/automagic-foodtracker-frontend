@@ -49,7 +49,8 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
     const isThresholdPositive = formData.lowStockThreshold >= 0;
     const isWeightPerMealLessThanTotalWeight = formData.weightPerMeal <= formData.totalWeight;
     const isWeightPerMealPositive = formData.weightPerMeal >= 0;
-    const isFormValid = isNutritionPositive && isNameValid && isThresholdLessThanTotalWeight && isThresholdPositive && isWeightPerMealLessThanTotalWeight && isWeightPerMealPositive;
+    const isTotalWeightValid = formData.totalWeight >= 0;
+    const isFormValid = isNutritionPositive && isNameValid && isThresholdLessThanTotalWeight && isThresholdPositive && isWeightPerMealLessThanTotalWeight && isWeightPerMealPositive && isTotalWeightValid;
 
     return (
         <Dialog onOpenChange={(open) => open && setFormData(defaultFormData)}>
@@ -171,6 +172,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                         {isThresholdPositive ? null : <ErrorInput description="Low stock threshold must be positive."/>}
                         {isWeightPerMealLessThanTotalWeight ? null : <ErrorInput description="Weight per meal must be lower than total weight."/>}
                         {isWeightPerMealPositive ? null : <ErrorInput description="Weight per meal must be positive."/>}
+                        {isTotalWeightValid ? null : <ErrorInput description="Total weight must be equal or greater than 0g"/>}
                     </div>
                 </form>
             </DialogContent>

@@ -74,7 +74,8 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
 
     const isNutritionPositive = formData.nutrition.protein >= 0 && formData.nutrition.fat >= 0 && formData.nutrition.carbs >= 0 && formData.nutrition.kcal >= 0;
     const isNameValid = formData.name.length > 0;
-    const isFormValid = isNutritionPositive && isNameValid;
+    const isWeightValid = formData.weight >= 0;
+    const isFormValid = isNutritionPositive && isNameValid && isWeightValid;
 
     return (
         <Dialog onOpenChange={(open) => open && setFormData(item)}>
@@ -210,6 +211,7 @@ export const UpdateMealDialog = ({item, onUpdate}: UpdateMealDialogProps) => {
                     <div className="grid gap-3 justify-center mt-2 text-center">
                         {isNutritionPositive ? null : <ErrorInput description="Nutrition values must be positive"/>}
                         {isNameValid ? null : <ErrorInput description="You must enter a name for the meal"/>}
+                        {isWeightValid ? null : <ErrorInput description="Weight must be greater or equal to 0g"/>}
                     </div>
                 </form>
             </DialogContent>
