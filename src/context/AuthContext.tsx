@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
             if (error instanceof Error) {
                 setError(error.message);
             }
-            console.error(error);
+            console.error("Failed to delete user:", error);
             throw error;
         } finally {
             setIsAuthenticated(false)
@@ -92,7 +92,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                await apiClient.get("/storage");
+                await apiClient.get("/auth/check");
                 setIsAuthenticated(true);
             } catch (error) {
                 setIsAuthenticated(false);
