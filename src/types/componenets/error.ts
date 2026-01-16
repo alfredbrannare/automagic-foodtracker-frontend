@@ -1,4 +1,4 @@
-interface ErrorProps {
+export interface ErrorProps {
     title: String
     description: String
 }

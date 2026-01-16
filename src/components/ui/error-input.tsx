@@ -1,11 +1,15 @@
 interface ErrorInputProps {
-    description: string
+    description?: string
+    children?: React.ReactNode
+    className?: string
 }
 
-export function ErrorInput({ description }: ErrorInputProps) {
+export function ErrorInput({ description, children, className }: ErrorInputProps) {
     return (
-        <>
-            <span className="text-red text-xs">{description}</span>
-        </>
+        <div className={className}>
+            <span className="text-red text-xs">
+                {children || description}
+            </span>
+        </div>
     );
 }

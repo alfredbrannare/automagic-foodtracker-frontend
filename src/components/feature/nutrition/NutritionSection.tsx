@@ -1,4 +1,4 @@
-import {Card, CardAction, CardContent, CardFooter, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer } from "../../ui";
+import {Card, CardContent, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer } from "../../ui";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
 import { NutritionItem } from "./NutritionItem";
 import {useUserContext} from "@/hooks/useUser.ts";

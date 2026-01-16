@@ -48,7 +48,7 @@ export const StorageItem = ({item, onRemove, onUpdate, onRefetch}: StorageItemPr
                 <div
                     className={`flex items-center gap-2 transition-all duration-300 ${isExpanded ? 'w-auto opacity-100' : 'w-0 opacity-0 overflow-hidden'}`}>
                     <UpdateStorageDialog item={item} onUpdate={onUpdate} onRefetch={onRefetch}/>
-                    <DeleteStorageDialog item={item} onRemove={onRemove}/>
+                    <DeleteStorageDialog item={item} onRemove={onRemove} onRefetch={onRefetch}/>
                 </div>
                 <button onClick={() => setIsExpanded(!isExpanded)}>
                     <Menu

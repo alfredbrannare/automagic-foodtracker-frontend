@@ -1,5 +1,4 @@
 import {useState} from "react";
-import {useUserContext} from "@/hooks/useUser.ts";
 import {
     Button, Checkbox,
     Dialog, DialogClose,
@@ -16,7 +15,7 @@ interface DeleteUserDialogProps {
 }
 
 export const DeleteUserDialog = ( { onSuccess }: DeleteUserDialogProps) => {
-    const {removeUser, isLoading, error} = useAuthContext();
+    const {removeUser, isLoading} = useAuthContext();
     const [isChecked, setIsChecked] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {

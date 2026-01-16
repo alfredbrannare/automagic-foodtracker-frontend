@@ -1,3 +1,3 @@
-interface LoadingProps {
-    message?: String
+export interface LoadingProps {
+    message?: string
 }
