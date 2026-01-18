@@ -1,73 +1,135 @@
-# React + TypeScript + Vite
+# Automagic Food Tracker — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for the Automagic Food Tracker application.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Axios
+- Radix UI Components
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18+
+- npm or yarn
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Clone the repository
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/alfredbrannare/automagic-foodtracker-frontend.git
+cd automagic-foodtracker-frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Configure environment variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_API_URL=http://localhost:8080/api
+```
+
+#### Environment Variables Reference
+
+| Variable | Description | Example                     |
+|----------|-------------|-----------------------------|
+| `VITE_API_URL` | Backend API base URL | `http://localhost:8080/api` |
+
+### 4. Run the application
+
+**Development mode:**
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+**Build for production:**
+
+```bash
+npm run build
+```
+
+**Preview production build:**
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```
+src/
+├── api/              # API service functions
+│   ├── apiClient.ts  # Axios instance with interceptors
+│   ├── auth.ts       # Authentication API
+│   ├── meal.ts       # Meals API
+│   ├── nutrition.ts  # Nutrition API
+│   ├── storage.ts    # Storage API
+│   └── user.ts       # User API
+├── components/
+│   ├── feature/      # Feature components
+│   │   ├── auth/     # Login, Register forms
+│   │   ├── meal/     # Meal section, dialogs
+│   │   ├── nutrition/# Nutrition section
+│   │   ├── storage/  # Storage section, dialogs
+│   │   └── user/     # User settings dialogs
+│   ├── layout/       # Layout components (NavigationBar)
+│   └── ui/           # Reusable UI components
+├── context/          # React contexts
+│   ├── AuthContext.tsx
+│   ├── MealContext.tsx
+│   ├── NutritionContext.tsx
+│   ├── StorageContext.tsx
+│   └── UserContext.tsx
+├── hooks/            # Custom hooks
+├── lib/              # Utilities
+├── pages/            # Page components
+│   ├── Auth.tsx
+│   └── Dashboard.tsx
+├── types/            # TypeScript types
+├── utils/            # Helper functions
+├── App.tsx
+└── main.tsx
+```
+
+## Features
+
+- **User Authentication** — Register, login, logout with JWT
+- **Storage Management** — Track meal prep with low stock warnings
+- **Meal Logging** — Log meals from storage or custom entries
+- **Nutritional Tracking** — Daily nutrition totals vs personal goals
+- **Date Navigation** — View historical data up to 2 weeks back
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Connecting to Backend
+
+Make sure the backend is running at the URL specified in `VITE_API_URL`.
+
+For local development:
+1. Start PostgreSQL database
+2. Start the backend: `./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
+3. Start the frontend: `npm run dev`
+
+## License
+
+MIT
