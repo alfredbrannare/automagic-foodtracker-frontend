@@ -18,7 +18,3 @@ export const logoutUser = async () => {
 export const deleteUser = async (): Promise<void> => {
     await apiClient.delete('/me');
 }
-
-const loginWithGoogle = () => {
-    window.location.href = import.meta.env.OAUTH2_BASE_URL;
-};

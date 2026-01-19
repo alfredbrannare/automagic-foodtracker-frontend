@@ -1,19 +1,25 @@
-import { useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
-export const OAuthCallback = () => {
+export const OAuth2Callback = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = searchParams.get("token");
+        const token = searchParams.get('token');
+
         if (token) {
-            localStorage.setItem("token", token);
-            window.location.href = "/dashboard";
+            localStorage.setItem('token', token);
+
+            navigate('/dashboard');
         } else {
-            navigate("/login?error=auth_failed");
+            navigate('/login?error=no_token');
         }
     }, [searchParams, navigate]);
 
-    return <div>Completing login, please wait...</div>;
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+            <h2>Finalizing login...</h2>
+        </div>
+    );
 };
