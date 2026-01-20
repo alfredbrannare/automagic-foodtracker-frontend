@@ -18,7 +18,14 @@ export const NutritionProvider: React.FC<NutritionProviderProps> = ({ children }
             const dateString: string | undefined = date ? date.toISOString().split("T")[0] : undefined;
             const data = await getDailyNutritionSummary(dateString);
 
-            if (data)
+            if (data === null) {
+                setNutritionItems({
+                    protein: 0,
+                    carbs: 0,
+                    fat: 0,
+                    kcal: 0,
+                })
+            }
 
             setNutritionItems(data);
         } catch (error) {

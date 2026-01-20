@@ -1,5 +1,5 @@
 import type {UpdateUserGoalsRequest} from "@/types/user";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useUserContext} from "@/hooks/useUser.ts";
 import {
     Button,
@@ -16,25 +16,27 @@ export const UpdateUserGoalsDialog = () => {
     const {userGoals, updateGoals, loading} = useUserContext();
 
     const [formData, setFormData] = useState<UpdateUserGoalsRequest>({
-        targetProtein: userGoals?.targetProtein ?? 0,
-        targetCarbs: userGoals?.targetCarbs ?? 0,
-        targetFat: userGoals?.targetFat ?? 0,
-        targetCalories: userGoals?.targetCalories ?? 0
+        targetProtein: 0,
+        targetCarbs: 0,
+        targetFat: 0,
+        targetCalories: 0
     });
-
-    const handleReset = () => {
-        setFormData({
-            targetProtein: userGoals?.targetProtein ?? 0,
-            targetCarbs: userGoals?.targetCarbs ?? 0,
-            targetFat: userGoals?.targetFat ?? 0,
-            targetCalories: userGoals?.targetCalories ?? 0
-        })
-    }
 
     const isFormValid = formData.targetProtein >= 0 &&
         formData.targetCarbs >= 0 &&
         formData.targetCalories >= 0 &&
         formData.targetFat >= 0;
+
+    useEffect(() => {
+        if (userGoals) {
+            setFormData({
+                targetProtein: userGoals.targetProtein,
+                targetCarbs: userGoals.targetCarbs,
+                targetFat: userGoals.targetFat,
+                targetCalories: userGoals.targetCalories
+            })
+        }
+    }, [userGoals]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -42,7 +44,12 @@ export const UpdateUserGoalsDialog = () => {
     }
 
     return (
-        <Dialog>
+        <Dialog onOpenChange={(open) => open && setFormData({
+            targetProtein: userGoals.targetProtein,
+            targetCarbs: userGoals.targetCarbs,
+            targetFat: userGoals.targetFat,
+            targetCalories: userGoals.targetCalories
+        })}>
             <DialogTrigger asChild>
                 <button>
                     <Goal
@@ -108,7 +115,7 @@ export const UpdateUserGoalsDialog = () => {
                     </div>
                     <DialogFooter className="mt-4">
                         <DialogClose asChild>
-                            <Button type="button" variant="outline" onClick={handleReset}>Cancel</Button>
+                            <Button type="button" variant="outline">Cancel</Button>
                         </DialogClose>
                         <DialogClose asChild>
                             <Button type="submit" disabled={!isFormValid}>Save changes</Button>

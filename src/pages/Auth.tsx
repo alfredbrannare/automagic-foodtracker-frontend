@@ -25,7 +25,9 @@ export const Auth = () => {
                     </p>
                 </div>
                 <Separator className="mb-0"/>
+                <div className="flex flex-col items-center gap-4 mt-4">
                 <Button onClick={handleGoogleLogin}>Login with Google</Button>
+                </div>
             </Card>
         </main>
     )
