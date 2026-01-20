@@ -16,8 +16,6 @@ export interface MessageResponse {
 export interface AuthContextType {
     isAuthenticated: boolean;
     isLoading: boolean;
-    login: (data: LoginRequest) => Promise<void>;
-    register: (data: RegisterRequest) => Promise<void>;
     logout: () => void;
     removeUser: () => Promise<void>;
     error: string | null;

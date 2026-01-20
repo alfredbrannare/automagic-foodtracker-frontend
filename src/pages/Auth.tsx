@@ -1,16 +1,16 @@
 import {
+    Button,
     Card,
-    Separator,
-    Tabs, TabsContent,
-    TabsList,
-    TabsTrigger
+    Separator
 } from "@/components/ui";
-import {LoginForm} from "@/components/feature/auth/LoginForm.tsx";
-import {RegisterForm} from "@/components/feature/auth/RegisterForm.tsx";
-import {useState} from "react";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const Auth = () => {
-    const [activeTab, setActiveTab] = useState<string>("login")
+
+    const handleGoogleLogin = () => {
+        window.location.href = `${BACKEND_URL}/oauth2/authorization/google`;
+    }
 
     return (
         <main className="min-h-screen m-2 pb-30 flex flex-col items-center gap-4 justify-center max-w-full">
@@ -25,18 +25,7 @@ export const Auth = () => {
                     </p>
                 </div>
                 <Separator className="mb-0"/>
-                <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="w-full bg-elevated-bg rounded-b-lg rounded-t-xl pt-0">
-                        <TabsTrigger value="login">Login</TabsTrigger>
-                        <TabsTrigger value="register">Register</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="login" className="mt-4">
-                        <LoginForm />
-                    </TabsContent>
-                    <TabsContent value="register">
-                            <RegisterForm />
-                    </TabsContent>
-                </Tabs>
+                <Button onClick={handleGoogleLogin}>Login with Google</Button>
             </Card>
         </main>
     )

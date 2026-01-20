@@ -4,6 +4,8 @@ import { NutritionItem } from "./NutritionItem";
 import {useUserContext} from "@/hooks/useUser.ts";
 import { SkipBack, SkipForward } from 'lucide-react';
 
+const NUTRIENT_KEYS = ['protein', 'carbs', 'fat', 'kcal'] as const;
+
 export const NutritionSection = () => {
     const { nutritionItems, loading: nutritionLoading, error: nutritionError, selectedDate, changeDate } = useNutritionContext();
     const { userGoals, loading: goalsLoading, error: goalsError } = useUserContext();
@@ -42,11 +44,11 @@ export const NutritionSection = () => {
                     />
                 ) : nutritionItems && userGoals ? (
                     <div className="flex flex-col justify-between my-2">
-                        {Object.entries(nutritionItems).map(([key, value]) => (
+                        {NUTRIENT_KEYS.map((key) => (
                             <NutritionItem
                             key={key}
                             label={key}
-                            value={value}
+                            value={nutritionItems[key] ?? 0}
                             goal={userGoals}
                             />
                         ))}
