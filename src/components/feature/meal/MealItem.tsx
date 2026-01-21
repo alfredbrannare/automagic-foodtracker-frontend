@@ -6,6 +6,7 @@ import { Menu } from 'lucide-react';
 import {UpdateMealDialog} from "@/components/feature/meal/UpdateMealDialog.tsx";
 import {DeleteMealDialog} from "@/components/feature/meal/DeleteMealDialog.tsx";
 import { formatDateForInput} from "@/utils/date-utils.ts";
+import {handleInputRound} from "@/utils/input-utils.ts";
 
 interface MealItemProps {
     item: MealResponse;
@@ -25,11 +26,11 @@ export const MealItem = ({item, onRemove, onUpdate, onRefetch}: MealItemProps) =
                     <Label className={`text-md truncate block w-15 custom-sm:w-30 ${isExpanded && "w-15"}`}>{item.name}</Label>
                     <span className="text-sm">{item.weight}g</span>
                 </div>
-                <div className={`grid grid-cols-2 custom-sm:grid-cols-4 gap-2 justify-self-center ${isExpanded && "hidden"}`}>  {/* Add justify-self-center here */}
+                <div className={`grid grid-cols-2 custom-sm:grid-cols-4 gap-2 justify-self-center ${isExpanded && "hidden"}`}>
                     {Object.entries(item.nutrition).map(([key, value]) => (
                         <div key={key} className="flex flex-col items-center gap-1">
                             <Label className="text-xs text-muted-foreground">{key}</Label>
-                            <Label className="text-sm">{Math.round(value)}g</Label>
+                            <Label className="text-sm">{handleInputRound(value)}g</Label>
                         </div>
                     ))}
                 </div>

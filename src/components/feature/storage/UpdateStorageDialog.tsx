@@ -16,7 +16,7 @@ import type {StorageResponse, UpdateStorageRequest} from "@/types/storage";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import {ErrorInput} from "../../ui/index.ts";
 import {SquarePen} from "lucide-react";
-import {handleInputFocus} from "@/utils/input-utils.ts";
+import {handleInputFocus, handleInputRound} from "@/utils/input-utils.ts";
 
 interface UpdateStorageDialogProps {
     item: StorageResponse;
@@ -70,7 +70,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-1">Total Weight (g)</Label>
                                 <Input id="weight-1" name="weight" type="number"
-                                       value={Math.round(formData.totalWeight)}
+                                       value={handleInputRound(formData.totalWeight)}
                                        onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, totalWeight: Number(e.target.value)})}
                                        required={true}/>
@@ -89,7 +89,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                 <Label htmlFor="weight-per-meal-1">Weight per meal (g)</Label>
                                 <Input id="weight-per-meal-1" name="weightPerMeal" type="number"
                                                onFocus={handleInputFocus}
-                                       value={Math.round(formData.weightPerMeal)} onChange={(e) => setFormData({
+                                       value={handleInputRound(formData.weightPerMeal)} onChange={(e) => setFormData({
                                     ...formData,
                                     weightPerMeal: Number(e.target.value)
                                 })} required={true}/>
@@ -98,7 +98,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                 <Label htmlFor="low-stock-threshold-1">Low stock threshold (g)</Label>
                                 <Input id="low-stock-threshold-1" name="lowStockThreshold" type="number"
                                                onFocus={handleInputFocus}
-                                       value={Math.round(formData.lowStockThreshold)} onChange={(e) => setFormData({
+                                       value={handleInputRound(formData.lowStockThreshold)} onChange={(e) => setFormData({
                                     ...formData,
                                     lowStockThreshold: Number(e.target.value)
                                 })} required={true}/>
@@ -112,7 +112,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                         <Label htmlFor="protein-1">Protein (g)</Label>
                                         <Input id="protein-1" name="protein" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.protein)}
+                                               value={handleInputRound(formData.nutritionPer100g.protein)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {
@@ -125,7 +125,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                         <Label htmlFor="calories-1">Calories</Label>
                                         <Input id="calories-1" name="calories" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.kcal)}
+                                               value={handleInputRound(formData.nutritionPer100g.kcal)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {
@@ -141,7 +141,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                         <Label htmlFor="carbs-1">Carbs (g)</Label>
                                         <Input id="carbs-1" name="carbs" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.carbs)}
+                                               value={handleInputRound(formData.nutritionPer100g.carbs)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {
@@ -154,7 +154,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                                         <Label htmlFor="fat-1">Fat (g)</Label>
                                         <Input id="fat-1" name="fat" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.fat)}
+                                               value={handleInputRound(formData.nutritionPer100g.fat)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {

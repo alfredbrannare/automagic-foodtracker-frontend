@@ -13,7 +13,7 @@ import {useStorageContext} from "@/hooks/useStorage.ts";
 import {useState} from "react";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {CreateStorageRequest} from "@/types/storage";
-import {handleInputFocus} from "@/utils/input-utils.ts";
+import {handleInputFocus, handleInputRound} from "@/utils/input-utils.ts";
 
 interface AddStorageDialogProps {
     onSuccess?: () => void;
@@ -79,7 +79,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-1">Total Weight (g)</Label>
-                                <Input id="weight-1" name="weight" type="number" value={Math.round(formData.totalWeight)}
+                                <Input id="weight-1" name="weight" type="number" value={handleInputRound(formData.totalWeight)}
                                        onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, totalWeight: Number(e.target.value)})}
                                        required={true}/>
@@ -97,13 +97,13 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                             </div>
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-2">Weight per meal (g)</Label>
-                                <Input id="weight-2" name="weightPerMeal" type="number" value={Math.round(formData.weightPerMeal)}
+                                <Input id="weight-2" name="weightPerMeal" type="number" value={handleInputRound(formData.weightPerMeal)}
                                        onFocus={handleInputFocus}
                                 onChange={(e) => setFormData({...formData, weightPerMeal: Number(e.target.value)})}></Input>
                             </div>
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-2">Low stock threshold (g)</Label>
-                                <Input id="weight-2" name="lowStockThreshold" type="number" value={Math.round(formData.lowStockThreshold)}
+                                <Input id="weight-2" name="lowStockThreshold" type="number" value={handleInputRound(formData.lowStockThreshold)}
                                        onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, lowStockThreshold: Number(e.target.value)})}></Input>
                             </div>
@@ -116,7 +116,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                         <Label htmlFor="protein-1">Protein (per 100g)</Label>
                                         <Input id="protein-1" name="protein" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.protein)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutritionPer100g.protein)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
                                                 ...formData.nutritionPer100g,
@@ -128,7 +128,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                         <Label htmlFor="calories-1">Calories (per 100g)</Label>
                                         <Input id="calories-1" name="calories" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.kcal)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutritionPer100g.kcal)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
                                                 ...formData.nutritionPer100g,
@@ -143,7 +143,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                         <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
                                         <Input id="carbs-1" name="carbs" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.carbs)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutritionPer100g.carbs)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
                                                 ...formData.nutritionPer100g,
@@ -155,7 +155,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                         <Label htmlFor="fat-1">Fat (per 100g)</Label>
                                         <Input id="fat-1" name="fat" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutritionPer100g.fat)}
+                                               value={handleInputRound(formData.nutritionPer100g.fat)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {

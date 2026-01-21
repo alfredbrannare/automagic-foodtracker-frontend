@@ -15,7 +15,7 @@ import type {CreateMealRequest} from "@/types/meal";
 import {useStorageContext} from "@/hooks/useStorage.ts";
 import {useMealContext} from "@/hooks/useMeal.ts";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
-import {handleInputFocus} from "@/utils/input-utils.ts";
+import {handleInputFocus, handleInputRound} from "@/utils/input-utils.ts";
 
 const NONE = "__none__";
 
@@ -139,7 +139,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-1">Weight (g)</Label>
-                                <Input id="weight-1" name="weight" type="number" value={Math.round(formData.weight)}
+                                <Input id="weight-1" name="weight" type="number" value={handleInputRound(formData.weight)}
                                        onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, weight: Number(e.target.value)})}
                                        required={true}/>
@@ -163,7 +163,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                                         <Label htmlFor="protein-1">Protein (per 100g)</Label>
                                         <Input id="protein-1" disabled={isFromStorage} name="protein" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutrition.protein)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutrition.protein)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -175,7 +175,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                                         <Label htmlFor="calories-1">Calories (per 100g)</Label>
                                         <Input id="calories-1" disabled={isFromStorage} name="calories" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutrition.kcal)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutrition.kcal)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -190,7 +190,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                                         <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
                                         <Input id="carbs-1" disabled={isFromStorage} name="carbs" type="number"
                                                onFocus={handleInputFocus}
-                                               value={Math.round(formData.nutrition.carbs)} onChange={(e) => setFormData({
+                                               value={handleInputRound(formData.nutrition.carbs)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutrition: {
                                                 ...formData.nutrition,
@@ -200,7 +200,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="fat-1">Fat (per 100g)</Label>
-                                        <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={Math.round(formData.nutrition.fat)}
+                                        <Input id="fat-1" disabled={isFromStorage} name="fat" type="number" value={handleInputRound(formData.nutrition.fat)}
                                                onFocus={handleInputFocus}
                                                onChange={(e) => setFormData({
                                                    ...formData,
