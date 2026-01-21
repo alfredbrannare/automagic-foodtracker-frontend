@@ -214,7 +214,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                             </>
                         )}
                     </div>
-                    <DialogFooter className="mt-4">
+                    <DialogFooter className="mt-4 flex-row justify-end">
                         <DialogClose asChild>
                             <Button type="button" variant="outline">Cancel</Button>
                         </DialogClose>

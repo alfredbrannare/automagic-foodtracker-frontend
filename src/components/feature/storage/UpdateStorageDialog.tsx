@@ -29,6 +29,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
 
     const isThresholdValid =
         formData.lowStockThreshold <= formData.totalWeight;
+    const isNameValid = formData.name.length > 0;
     const isMealWeightValid =
         formData.weightPerMeal <= formData.totalWeight;
     const isTotalWeightValid = formData.totalWeight >= 0;
@@ -57,7 +58,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                             This change can&apos;t be undone.
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4">
+                    <div className="grid gap-1">
 
                         <div className="grid gap-3">
                             <Label htmlFor="name-1">Name</Label>
@@ -167,7 +168,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                             </>
                         )}
                     </div>
-                    <DialogFooter className="mt-4">
+                    <DialogFooter className="mt-4 flex-row justify-end">
                         <DialogClose asChild>
                             <Button type="button" variant="outline">Cancel</Button>
                         </DialogClose>
@@ -176,6 +177,7 @@ export const UpdateStorageDialog = ({item, onUpdate, onRefetch}: UpdateStorageDi
                         </DialogClose>
                     </DialogFooter>
                     <div className="grid gap-3 justify-center mt-2 text-center">
+                        {isNameValid ? null : <ErrorInput description="You must enter a name for the storage"/>}
                         {isThresholdValid ? null :
                             <ErrorInput description="Low stock threshold must be lower than total weight."/>}
                         {isMealWeightValid ? null :

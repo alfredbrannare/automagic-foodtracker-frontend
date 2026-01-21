@@ -67,7 +67,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                         <DialogDescription>
                         </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4">
+                    <div className="grid gap-2">
 
                         <div className="grid gap-3">
                             <Label htmlFor="name-1">Name</Label>
@@ -168,7 +168,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                             </>
                         )}
                     </div>
-                    <DialogFooter className="mt-4">
+                    <DialogFooter className="mt-4 flex-row justify-end">
                         <DialogClose asChild>
                             <Button type="button" variant="outline">Cancel</Button>
                         </DialogClose>
