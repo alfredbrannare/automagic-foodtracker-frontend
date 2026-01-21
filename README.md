@@ -1,6 +1,6 @@
-# Automagic Food Tracker — Frontend
+# Automagic Foodtracker — Frontend
 
-React frontend for the Automagic Food Tracker application.
+React frontend for the Automagic Foodtracker application.
 
 ## Tech Stack
 
@@ -31,14 +31,6 @@ cd automagic-foodtracker-frontend
 npm install
 ```
 
-### 3. Configure environment variables
-
-Create a `.env` file in the root directory:
-
-```env
-VITE_API_URL=http://localhost:8080/api
-```
-
 #### Environment Variables Reference
 
 | Variable | Description | Example                     |
@@ -59,12 +51,6 @@ The app will be available at `http://localhost:5173`
 
 ```bash
 npm run build
-```
-
-**Preview production build:**
-
-```bash
-npm run preview
 ```
 
 ## Project Structure
@@ -118,17 +104,13 @@ src/
 |---------|-------------|
 | `npm run dev` | Start development server |
 | `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
 
 ## Connecting to Backend
 
-Make sure the backend is running at the URL specified in `VITE_API_URL`.
+In order for the frontend to work, it needs to connect to the backend. <br>
+It should by default have the correct URL but incase it isn't working add the `VITE_API_URL` in a `.env` file in the root of the project.
 
-For local development:
-1. Start PostgreSQL database
-2. Start the backend: `./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
-3. Start the frontend: `npm run dev`
+See more about starting the backend [here](https://github.com/alfredbrannare/automagic-foodtracker-backend).
 
 ## License
 
