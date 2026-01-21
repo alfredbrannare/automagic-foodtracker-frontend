@@ -1,7 +1,6 @@
 import {
     Card,
-    CardContent,
-    CardHeader,
+    CardContent, CardHeader,
     CardTitle,
     Collapsible, CollapsibleContent, CollapsibleTrigger,
     ErrorContainer,
@@ -38,7 +37,9 @@ export const MealSection = () => {
                         className="hover:cursor-pointer transition-transform duration-300 hover:scale-110">
                     <SkipBack className="text-amft-white"/>
                 </button>
+                <div className="flex flex-col text-center">
                 <CardTitle className="text-amft-white text-2xl">Meals</CardTitle>
+                </div>
                 <button onClick={() => changeDate(1)}
                         className={`${isToday ? 'hover:cursor-not-allowed' : 'hover:cursor-pointer transition-transform duration-300 hover:scale-110'}`}
                         disabled={isToday}>
@@ -89,6 +90,7 @@ export const MealSection = () => {
                     </Collapsible>
                 )
                 }
+                <span className="text-xs text-muted-foreground text-center">Meals older than 2 weeks are automatically removed</span>
             </CardContent>
         </Card>
     );
