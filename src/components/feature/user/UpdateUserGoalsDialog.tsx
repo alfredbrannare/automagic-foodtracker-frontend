@@ -11,6 +11,7 @@ import {
     DialogTrigger, ErrorInput, Input, Label
 } from "@/components/ui";
 import {Goal} from 'lucide-react';
+import {handleInputFocus} from "@/utils/input-utils.ts";
 
 export const UpdateUserGoalsDialog = () => {
     const {userGoals, updateGoals, loading} = useUserContext();
@@ -68,6 +69,7 @@ export const UpdateUserGoalsDialog = () => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="protein-1">Protein (g)</Label>
                                         <Input id="protein-1" name="protein" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.targetProtein)} onChange={(e) => setFormData({
                                             ...formData,
                                             targetProtein: Number(e.target.value)
@@ -76,6 +78,7 @@ export const UpdateUserGoalsDialog = () => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="calories-1">Calories (g)</Label>
                                         <Input id="calories-1" name="calories" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.targetCalories)} onChange={(e) => setFormData({
                                             ...formData,
                                             targetCalories: Number(e.target.value)
@@ -87,6 +90,7 @@ export const UpdateUserGoalsDialog = () => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="carbs-1">Carbs (g)</Label>
                                         <Input id="carbs-1" name="carbs" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.targetCarbs)} onChange={(e) => setFormData({
                                             ...formData,
                                             targetCarbs: Number(e.target.value)
@@ -94,7 +98,9 @@ export const UpdateUserGoalsDialog = () => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="fat-1">Fat (g)</Label>
-                                        <Input id="fat-1" name="fat" type="number" value={Math.round(formData.targetFat)}
+                                        <Input id="fat-1" name="fat" type="number"
+                                               onFocus={handleInputFocus}
+                                               value={Math.round(formData.targetFat)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    targetFat: Number(e.target.value)

@@ -13,6 +13,7 @@ import {useStorageContext} from "@/hooks/useStorage.ts";
 import {useState} from "react";
 import {formatDateForInput, formatInputToInstant} from "@/utils/date-utils.ts";
 import type {CreateStorageRequest} from "@/types/storage";
+import {handleInputFocus} from "@/utils/input-utils.ts";
 
 interface AddStorageDialogProps {
     onSuccess?: () => void;
@@ -71,6 +72,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                         <div className="grid gap-3">
                             <Label htmlFor="name-1">Name</Label>
                             <Input id="name-1" name="name" value={formData.name}
+                                   onFocus={handleInputFocus}
                                    onChange={(e) => setFormData({...formData, name: e.target.value})} required={true}/>
                         </div>
 
@@ -78,12 +80,14 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-1">Total Weight (g)</Label>
                                 <Input id="weight-1" name="weight" type="number" value={Math.round(formData.totalWeight)}
+                                       onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, totalWeight: Number(e.target.value)})}
                                        required={true}/>
                             </div>
                             <div className="grid gap-3">
                                 <Label htmlFor="date-1">Date</Label>
                                 <Input id="date-1" name="date" type="datetime-local"
+                                       onFocus={handleInputFocus}
                                        value={formatDateForInput(formData.createdAt)} onChange={(e) => {
                                     const instant = formatInputToInstant(e.target.value);
                                     if (instant) {
@@ -94,11 +98,13 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-2">Weight per meal (g)</Label>
                                 <Input id="weight-2" name="weightPerMeal" type="number" value={Math.round(formData.weightPerMeal)}
+                                       onFocus={handleInputFocus}
                                 onChange={(e) => setFormData({...formData, weightPerMeal: Number(e.target.value)})}></Input>
                             </div>
                             <div className="grid gap-3">
                                 <Label htmlFor="weight-2">Low stock threshold (g)</Label>
                                 <Input id="weight-2" name="lowStockThreshold" type="number" value={Math.round(formData.lowStockThreshold)}
+                                       onFocus={handleInputFocus}
                                        onChange={(e) => setFormData({...formData, lowStockThreshold: Number(e.target.value)})}></Input>
                             </div>
                         </div>
@@ -109,6 +115,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="protein-1">Protein (per 100g)</Label>
                                         <Input id="protein-1" name="protein" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.nutritionPer100g.protein)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
@@ -120,6 +127,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="calories-1">Calories (per 100g)</Label>
                                         <Input id="calories-1" name="calories" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.nutritionPer100g.kcal)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
@@ -134,6 +142,7 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                     <div className="grid gap-3">
                                         <Label htmlFor="carbs-1">Carbs (per 100g)</Label>
                                         <Input id="carbs-1" name="carbs" type="number"
+                                               onFocus={handleInputFocus}
                                                value={Math.round(formData.nutritionPer100g.carbs)} onChange={(e) => setFormData({
                                             ...formData,
                                             nutritionPer100g: {
@@ -144,7 +153,9 @@ export const AddStorageDialog = ({ onSuccess }: AddStorageDialogProps) => {
                                     </div>
                                     <div className="grid gap-3">
                                         <Label htmlFor="fat-1">Fat (per 100g)</Label>
-                                        <Input id="fat-1" name="fat" type="number" value={Math.round(formData.nutritionPer100g.fat)}
+                                        <Input id="fat-1" name="fat" type="number"
+                                               onFocus={handleInputFocus}
+                                               value={Math.round(formData.nutritionPer100g.fat)}
                                                onChange={(e) => setFormData({
                                                    ...formData,
                                                    nutritionPer100g: {
