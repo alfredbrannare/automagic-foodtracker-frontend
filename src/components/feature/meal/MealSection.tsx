@@ -90,7 +90,7 @@ export const MealSection = () => {
                     </Collapsible>
                 )
                 }
-                <span className="text-xs text-muted-foreground text-center">Meals older than 2 weeks are automatically removed</span>
+                <span className="text-xs text-muted-foreground text-center">Meals older than 2 weeks are automatically removed!</span>
             </CardContent>
         </Card>
     );
