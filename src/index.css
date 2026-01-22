@@ -5,6 +5,7 @@
 
 @theme inline {
     --breakpoint-custom-sm: 390px;
+    --breakpoint-custom-md: 430px;
 
     --color-elevated-bg: var(--elevated-bg);
     --color-amft-white: var(--text-white);
