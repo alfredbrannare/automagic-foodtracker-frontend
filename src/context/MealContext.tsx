@@ -42,6 +42,7 @@ export const MealProvider: React.FC<MealProviderProps> = ({ children }) => {
             const dateString = date ? date.toISOString().split("T")[0] : undefined;
 
             const data = await getMealItems(dateString);
+
             setMealItems(data);
         } catch (error) {
             if (error instanceof Error) {

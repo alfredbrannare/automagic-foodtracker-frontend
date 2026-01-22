@@ -11,6 +11,8 @@ import {
 } from "../../ui/index.ts"
 import type {MealResponse} from "@/types/meal";
 import {Trash} from "lucide-react";
+import {useNutritionContext} from "@/hooks/useNutrition.ts";
+import {useStorageContext} from "@/hooks/useStorage.ts";
 
 interface DeleteMealDialogProps {
     item: MealResponse;
@@ -19,11 +21,15 @@ interface DeleteMealDialogProps {
 }
 
 export const DeleteMealDialog = ({item, onRemove, onRefetch}: DeleteMealDialogProps) => {
+    const { refetch: NutritionRefetch } = useNutritionContext();
+    const { refetch: StorageRefetch } = useStorageContext();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onRemove(item.id);
         await onRefetch();
+        await NutritionRefetch();
+        if (item.storageId) await StorageRefetch();
     };
 
     return (

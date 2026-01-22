@@ -1,13 +1,16 @@
 import {Card, CardContent, CardHeader, CardTitle, Separator, LoadingContainer, ErrorContainer, Collapsible, CollapsibleContent, CollapsibleTrigger } from "../../ui";
 import {StorageItem} from "./StorageItem";
 import { useStorageContext } from "../../../hooks/useStorage.ts";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import { ChevronDown } from "lucide-react";
 
 export const StorageSection = () => {
     const { storageItems, loading, error, removeItem, updateItem, refetch } = useStorageContext();
+    const sortedItems = useMemo(() => {
+        return [...storageItems].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    }, [storageItems]);
     const [isOpen, setIsOpen] = useState(false);
-    const hasMore = storageItems.length > 3;
+    const hasMore = sortedItems.length > 3;
 
     return (
         <Card className="bg-elevated-bg max-w-5xl w-full">
@@ -22,13 +25,13 @@ export const StorageSection = () => {
                     <LoadingContainer message="Loading storage items..."/>
                 ) : error ? (
                     <ErrorContainer title="Unable to fetch storage items" description={error}/>
-                    ) : storageItems.length === 0 ? (
+                    ) : sortedItems.length === 0 ? (
                     <span className="text-center">
                         You've not registered any storage items
                     </span>
                     ) : (
                     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-                        {storageItems.slice(0, 3).map(item => (
+                        {sortedItems.slice(0, 3).map(item => (
                             <StorageItem
                                 key={item.id}
                                 item={item}
@@ -39,7 +42,7 @@ export const StorageSection = () => {
                         ))}
                         {hasMore && (
                             <CollapsibleContent>
-                                {storageItems.slice(3).map(item => (
+                                {sortedItems.slice(3).map(item => (
                                     <StorageItem
                                         key={item.id}
                                         item={item}

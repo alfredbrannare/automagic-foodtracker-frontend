@@ -5,6 +5,7 @@ import type {StorageResponse} from "@/types/storage";
 import {UpdateStorageDialog} from "./UpdateStorageDialog";
 import type {UpdateStorageRequest} from "@/types/storage";
 import {DeleteStorageDialog} from "@/components/feature/storage/DeleteStorageDialog.tsx";
+import {formatDateForInput} from "@/utils/date-utils.ts";
 
 
 interface StorageItemProps {
@@ -31,6 +32,10 @@ export const StorageItem = ({item, onRemove, onUpdate, onRefetch}: StorageItemPr
 
     return (
         <div>
+            <div className="flex gap-2 text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground">{formatDateForInput(item.createdAt).split("T")[0]}</span>
+                <span className="text-xs text-muted-foreground">{formatDateForInput(item.createdAt).split("T")[1]}</span>
+            </div>
             <div className="flex justify-between mb-1">
                 <Label className="text-md truncate block">{item.name}</Label>
                 <Label>{item.mealsLeftPercentage}%</Label>

@@ -39,6 +39,7 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
             setError(null);
 
             const data = await getStorageItems();
+
             setStorageItems(data);
         } catch (error) {
             if (error instanceof Error) {

@@ -10,11 +10,14 @@ import {
 import {useMealContext} from "@/hooks/useMeal.ts";
 import {MealItem} from "@/components/feature/meal/MealItem.tsx";
 import {useNutritionContext} from "@/hooks/useNutrition.ts";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {ChevronDown, SkipBack, SkipForward} from 'lucide-react';
 
 export const MealSection = () => {
     const {mealItems, loading, error, removeItem, updateItem, refetch} = useMealContext();
+    const sortedItems = useMemo(() => {
+        return [...mealItems].sort((a, b) => new Date(b.consumedAt).getTime() - new Date(a.consumedAt).getTime());
+    }, [mealItems]);
     const {selectedDate, changeDate} = useNutritionContext();
     const [isOpen, setIsOpen] = useState(false);
     const hasMore = mealItems.length > 3;
@@ -54,13 +57,13 @@ export const MealSection = () => {
                     <LoadingContainer message="Loading storage items..."/>
                 ) : error ? (
                     <ErrorContainer title="Unable to fetch storage items" description={error}/>
-                ) : mealItems.length === 0 ? (
+                ) : sortedItems.length === 0 ? (
                     <span className="text-center">
                         You've not registered any meals {selectedDate.toISOString().split('T')[0]}
                     </span>
                 ) : (
                     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-                        {mealItems.slice(0, 3).map((item, index) => (
+                        {sortedItems.slice(0, 3).map((item, index) => (
                             <MealItem
                                 key={index}
                                 item={item}
@@ -71,7 +74,7 @@ export const MealSection = () => {
                         ))}
                         {hasMore && (
                             <CollapsibleContent>
-                                {mealItems.slice(3).map((item, index) => (
+                                {sortedItems.slice(3).map((item, index) => (
                                 <MealItem
                                     key={index}
                                     item={item}

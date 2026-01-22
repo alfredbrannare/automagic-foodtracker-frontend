@@ -34,6 +34,7 @@ export const UpdateMealDialog = ({item, onUpdate, onRefetch}: UpdateMealDialogPr
     const {refetch: nutritionRefetch} = useNutritionContext();
 
     const [formData, setFormData] = useState<UpdateMealRequest>(item);
+    const [oldStorageId, setOldStorageId] = useState<string | null>(item.storageId);
 
     const isFromStorage = formData.storageId !== null;
 
@@ -70,7 +71,7 @@ export const UpdateMealDialog = ({item, onUpdate, onRefetch}: UpdateMealDialogPr
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         await onUpdate(item.id, formData);
-        await storageRefetch();
+        if (oldStorageId != formData.storageId) await storageRefetch();
         await nutritionRefetch();
         await onRefetch();
     };
@@ -81,7 +82,12 @@ export const UpdateMealDialog = ({item, onUpdate, onRefetch}: UpdateMealDialogPr
     const isFormValid = isNutritionPositive && isNameValid && isWeightValid;
 
     return (
-        <Dialog onOpenChange={(open) => open && setFormData(item)}>
+        <Dialog onOpenChange={(open) => {
+                if (open) {
+                    setFormData(item);
+                    setOldStorageId(item.storageId);
+                }
+            }}>
             <DialogTrigger asChild>
                 <Button variant="outline">
                     <span className="hidden custom-sm:inline">Update</span>
