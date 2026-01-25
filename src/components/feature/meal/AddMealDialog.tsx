@@ -125,7 +125,7 @@ export const AddMealDialog = ({ onSuccess }: AddMealDialogProps) => {
                                     </SelectItem>
                                     {storageItems.map((storageItem, index) => (
                                         <SelectItem key={index} value={storageItem.id}>
-                                            {storageItem.name}
+                                            {storageItem.name} <span className="text-xs text-muted-foreground">({(storageItem.totalWeight - storageItem.consumedWeight)}g)</span>
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
