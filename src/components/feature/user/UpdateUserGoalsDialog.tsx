@@ -46,10 +46,10 @@ export const UpdateUserGoalsDialog = () => {
 
     return (
         <Dialog onOpenChange={(open) => open && setFormData({
-            targetProtein: userGoals.targetProtein,
-            targetCarbs: userGoals.targetCarbs,
-            targetFat: userGoals.targetFat,
-            targetCalories: userGoals.targetCalories
+            targetProtein: userGoals?.targetProtein ?? 0,
+            targetCarbs: userGoals?.targetCarbs ?? 0,
+            targetFat: userGoals?.targetFat ?? 0,
+            targetCalories: userGoals?.targetCalories ?? 0,
         })}>
             <DialogTrigger asChild>
                 <button>
