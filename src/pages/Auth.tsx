@@ -4,12 +4,12 @@ import {
     Separator
 } from "@/components/ui";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const Auth = () => {
 
     const handleGoogleLogin = () => {
-        window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+        window.location.href = `${BACKEND_URL}/oauth2/authorization/google`;
     }
 
     return (
