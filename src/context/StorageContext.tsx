@@ -40,7 +40,12 @@ export const StorageProvider: React.FC<StorageProviderProps> = ({ children }) =>
 
             const data = await getStorageItems();
 
-            setStorageItems(data);
+            if (Array.isArray(data)) {
+                const sorted = data.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+                setStorageItems(sorted);
+            } else {
+                setStorageItems([]);
+            }
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);

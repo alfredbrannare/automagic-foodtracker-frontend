@@ -20,7 +20,7 @@ export interface UserGoalsResponse {
 }
 
 export interface UserContextTypes {
-    userGoals: Goals | null;
+    userGoals: Goals;
     loading: boolean;
     error: string | null;
     refetch: () => Promise<void>;
