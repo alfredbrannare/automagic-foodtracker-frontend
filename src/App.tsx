@@ -1,23 +1,22 @@
 import { AuthProvider } from './context/AuthContext';
 import {useAuthContext} from './hooks/useAuth';
 import { Dashboard, Auth } from '@/pages';
-import {Spinner} from "@/components/ui";
+import {isDemoMode} from '@/demo/demoMode';
 
 
 const AppContent: React.FC = () => {
     const { isAuthenticated, isLoading } = useAuthContext();
 
-    if (isLoading) {
-        return (
-            <div className="flex flex-col justify-center items-center h-screen gap-2">
-                Checking credentials...
-                <Spinner />
-            </div>
-        )
+    // Demo mode never waits on auth -- it makes no real network calls at all.
+    if (isDemoMode()) {
+        return <Dashboard />;
     }
 
+    // Render the landing page immediately instead of blocking on the auth check (which can
+    // take 30-60s on a cold backend). It flips to the dashboard once the check resolves
+    // authenticated; until then "Try demo" is visible right away.
     if (!isAuthenticated) {
-        return <Auth />;
+        return <Auth isCheckingSession={isLoading} />;
     }
 
     return (
