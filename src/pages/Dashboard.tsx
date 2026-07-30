@@ -6,14 +6,19 @@ import {NutritionSection} from "@/components/feature/nutrition/NutritionSection.
 import {UserProvider} from "@/context/UserContext.tsx";
 import {MealProvider} from "@/context/MealContext.tsx";
 import {MealSection} from "@/components/feature/meal/MealSection.tsx";
+import {DemoBanner} from "@/components/feature/demo/DemoBanner.tsx";
+import {isDemoMode} from "@/demo/demoMode";
 
 export const Dashboard = () => {
+    const demoMode = isDemoMode();
+
     return (
         <UserProvider>
             <StorageProvider>
                 <MealProvider>
                     <NutritionProvider>
-                        <main className="min-h-screen m-2 pb-30">
+                        <main className={`min-h-screen m-2 pb-30 ${demoMode ? "pt-28 sm:pt-20" : ""}`}>
+                            {demoMode && <DemoBanner/>}
                             <NavigationBar/>
                             <div className="flex flex-col items-center gap-4">
                                 <StorageSection/>
